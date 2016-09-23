@@ -3,10 +3,13 @@ ToDoAppProject
 
 An small entry demo app to join the http://www.CoderSchool.Vn learning activity. See the Tutorial on our cliffnotes for a step-by-step tutorial.
 
-Time spent: [] hours implementation in total
-- Implement link: https://github.com/TienVNguyen/ToDoAppProject
-- App link: https://github.com/TienVNguyen/ToDoAppProject
+Time spent: [3] hours implementation in total
+- 09/23: 3h
 
+Implement link: https://github.com/TienVNguyen/ToDoAppProject
+App link: https://github.com/TienVNguyen/ToDoAppProject
+
+========
 ### Submission Checklist:
 * [] Can you successfully add and remove items from the todo list within your app?
 * [] Did you include support for editing todo items as described above?
@@ -15,6 +18,7 @@ Time spent: [] hours implementation in total
 * [] Did you add a README.md to the repo on github which includes a GIF walkthrough of the app's functionality?
 * [] Did you visit your application and submit using the pre-work form?
 
+========
 ### Extending Your Todo
 * [] (Suggested) Persist the todo items into SQLite (http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
 * [] (Suggested) Improve style of the todo items in the list using a custom adapter (http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
@@ -25,8 +29,7 @@ Time spent: [] hours implementation in total
 * [] Anything else that you can get done to improve the app functionality or user experience!
 
 ========
-
-Notes:
+### Notes:
 - Walkthrough of all functionalities:
 
 ![Video Walkthrough](to_do_app_project.gif)
