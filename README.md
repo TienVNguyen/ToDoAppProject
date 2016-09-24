@@ -3,10 +3,12 @@ ToDoAppProject
 
 An small entry demo app to join the http://www.CoderSchool.Vn learning activity. See the Tutorial on our cliffnotes for a step-by-step tutorial.
 
-Time spent: [3] hours implementation in total
-- 09/23: 3h
+Time spent: [6] hours implementation in total:
+- 09/23: 3 hours
+- 09/24: 3 hours
 
 Implement link: https://github.com/TienVNguyen/ToDoAppProject
+
 App link: https://github.com/TienVNguyen/ToDoAppProject
 
 ========
