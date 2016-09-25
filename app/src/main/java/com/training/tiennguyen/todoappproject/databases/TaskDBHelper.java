@@ -39,9 +39,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
      * COMPLETED INTEGER KEY ,
      * CREATED_DATE INTEGER KEY ,
      * UPDATED_DATE INTEGER KEY ,
-     * UPDATED_DATE INTEGER KEY ,
      * STARTED_DATE INTEGER KEY ,
-     * COMPLETED_DATE INTEGER KEY
+     * COLUMN_DUE_DATE INTEGER KEY
      * ) ;
      */
     private static final String SQL_CREATE_ENTRIES = DatabaseConstant.CREATE_TABLE + TaskDBContract.TaskContain.TABLE_NAME
@@ -55,9 +54,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
             + TaskDBContract.TaskContain.COLUMN_COMPLETED + DatabaseConstant.INTEGER_KEY + DatabaseConstant.COMMA_SEP
             + TaskDBContract.TaskContain.COLUMN_CREATED_DATE + DatabaseConstant.INTEGER_KEY + DatabaseConstant.COMMA_SEP
             + TaskDBContract.TaskContain.COLUMN_UPDATED_DATE + DatabaseConstant.INTEGER_KEY + DatabaseConstant.COMMA_SEP
-            + TaskDBContract.TaskContain.COLUMN_UPDATED_DATE + DatabaseConstant.INTEGER_KEY + DatabaseConstant.COMMA_SEP
             + TaskDBContract.TaskContain.COLUMN_STARTED_DATE + DatabaseConstant.INTEGER_KEY + DatabaseConstant.COMMA_SEP
-            + TaskDBContract.TaskContain.COLUMN_COMPLETED_DATE + DatabaseConstant.INTEGER_KEY
+            + TaskDBContract.TaskContain.COLUMN_DUE_DATE + DatabaseConstant.INTEGER_KEY
             + DatabaseConstant.CLOSE_BRACKETS + DatabaseConstant.SEMICOLON;
 
     /**
@@ -117,7 +115,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 TaskDBContract.TaskContain.COLUMN_PERCENT, TaskDBContract.TaskContain.COLUMN_REMOVED,
                 TaskDBContract.TaskContain.COLUMN_COMPLETED, TaskDBContract.TaskContain.COLUMN_CREATED_DATE,
                 TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, TaskDBContract.TaskContain.COLUMN_STARTED_DATE,
-                TaskDBContract.TaskContain.COLUMN_COMPLETED_DATE
+                TaskDBContract.TaskContain.COLUMN_DUE_DATE
         };
 
         // Get the result
@@ -136,7 +134,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 taskModel.setmCreatedDate(new Date(cursor.getInt(7)));
                 taskModel.setmUpdatedDate(new Date(cursor.getInt(8)));
                 taskModel.setmStartedDate(new Date(cursor.getInt(9)));
-                taskModel.setmCompletedDate(new Date(cursor.getInt(10)));
+                taskModel.setmDueDate(new Date(cursor.getInt(10)));
                 resultSelect.add(taskModel);
             } while (cursor.moveToNext());
         }
@@ -182,8 +180,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         if (StringUtil.isNotNull(taskModel.getmStartedDate())) {
             contentValues.put(TaskDBContract.TaskContain.COLUMN_STARTED_DATE, taskModel.getmStartedDate().getTime());
         }
-        if (StringUtil.isNotNull(taskModel.getmCompletedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_COMPLETED_DATE, taskModel.getmCompletedDate().getTime());
+        if (StringUtil.isNotNull(taskModel.getmDueDate())) {
+            contentValues.put(TaskDBContract.TaskContain.COLUMN_DUE_DATE, taskModel.getmDueDate().getTime());
         }
 
         // Insert
@@ -232,8 +230,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         if (StringUtil.isNotNull(taskModel.getmStartedDate())) {
             contentValues.put(TaskDBContract.TaskContain.COLUMN_STARTED_DATE, taskModel.getmStartedDate().getTime());
         }
-        if (StringUtil.isNotNull(taskModel.getmCompletedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_COMPLETED_DATE, taskModel.getmCompletedDate().getTime());
+        if (StringUtil.isNotNull(taskModel.getmDueDate())) {
+            contentValues.put(TaskDBContract.TaskContain.COLUMN_DUE_DATE, taskModel.getmDueDate().getTime());
         }
 
         // Which row to update, based on the NAME

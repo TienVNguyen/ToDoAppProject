@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.training.tiennguyen.todoappproject.R;
+
 import butterknife.ButterKnife;
 
 /**
@@ -24,6 +26,17 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_edit_or_remove);
+
+        initViews();
+    }
+
+    /**
+     * Init Views
+     */
+    private void initViews() {
         ButterKnife.bind(this);
+
+        setTitle(getString(R.string.title_activity_edit_or_remove));
     }
 }

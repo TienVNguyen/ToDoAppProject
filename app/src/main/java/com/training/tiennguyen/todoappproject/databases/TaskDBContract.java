@@ -81,9 +81,9 @@ class TaskDBContract {
     private static final String KEY_STARTED_DATE = "STARTED_DATE";
 
     /**
-     * KEY_COMPLETED_DATE
+     * KEY_DUE_DATE
      */
-    private static final String KEY_COMPLETED_DATE = "COMPLETED_DATE";
+    private static final String KEY_DUE_DATE = "DUE_DATE";
 
     /**
      * NULL
@@ -113,7 +113,7 @@ class TaskDBContract {
         protected static final String COLUMN_CREATED_DATE = KEY_CREATED_DATE;
         protected static final String COLUMN_UPDATED_DATE = KEY_UPDATED_DATE;
         protected static final String COLUMN_STARTED_DATE = KEY_STARTED_DATE;
-        protected static final String COLUMN_COMPLETED_DATE = KEY_COMPLETED_DATE;
+        protected static final String COLUMN_DUE_DATE = KEY_DUE_DATE;
         protected static final String COLUMN_NAME_NULLABLE = NULL;
     }
 }

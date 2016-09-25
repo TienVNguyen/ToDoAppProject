@@ -38,31 +38,31 @@ public class TaskModel implements Parcelable {
     /**
      * Name
      */
-    private String mName;
+    private String mName = "";
     /**
      * Details
      */
-    private String mDetails;
+    private String mDetails = "";
     /**
      * Priority
      */
-    private String mPriority;
+    private String mPriority = "";
     /**
      * Status
      */
-    private String mStatus;
+    private String mStatus = "";
     /**
      * Percent
      */
-    private int mPercent;
+    private int mPercent = 0;
     /**
      * Removed
      */
-    private boolean mRemoved;
+    private boolean mRemoved = false;
     /**
      * Completed
      */
-    private boolean mCompleted;
+    private boolean mCompleted = false;
     /**
      * Created Date
      */
@@ -76,9 +76,9 @@ public class TaskModel implements Parcelable {
      */
     private Date mStartedDate;
     /**
-     * Completed Date
+     * Due Date
      */
-    private Date mCompletedDate;
+    private Date mDueDate;
 
     /**
      * Constructor
@@ -102,7 +102,7 @@ public class TaskModel implements Parcelable {
         mCreatedDate = new Date(in.readInt());
         mUpdatedDate = new Date(in.readInt());
         mStartedDate = new Date(in.readInt());
-        mCompletedDate = new Date(in.readInt());
+        mDueDate = new Date(in.readInt());
     }
 
     @Override
@@ -122,23 +122,23 @@ public class TaskModel implements Parcelable {
         dest.writeLong(mCreatedDate.getTime());
         dest.writeLong(mUpdatedDate.getTime());
         dest.writeLong(mStartedDate.getTime());
-        dest.writeLong(mCompletedDate.getTime());
+        dest.writeLong(mDueDate.getTime());
     }
 
     /**
      * getter method
      *
-     * @return mCompletedDate
+     * @return mDueDate
      */
-    public Date getmCompletedDate() {
-        return mCompletedDate;
+    public Date getmDueDate() {
+        return mDueDate;
     }
 
     /**
      * setter method
      */
-    public void setmCompletedDate(Date mCompletedDate) {
-        this.mCompletedDate = mCompletedDate;
+    public void setmDueDate(Date mDueDate) {
+        this.mDueDate = mDueDate;
     }
 
     /**
