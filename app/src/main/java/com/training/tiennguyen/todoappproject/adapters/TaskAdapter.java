@@ -8,6 +8,7 @@
 package com.training.tiennguyen.todoappproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.training.tiennguyen.todoappproject.R;
+import com.training.tiennguyen.todoappproject.activities.EditOrRemoveActivity;
+import com.training.tiennguyen.todoappproject.constants.VariableConstant;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
 
 import java.util.List;
@@ -70,13 +73,23 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
             holder.txtDueDate.setText(model.getmDueDate().toString());
         }
 
+        // Activities Edit/Remove
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(getContext(), EditOrRemoveActivity.class);
+                intent.putExtra(VariableConstant.TASK_DETAILS_INTENT, model);
+                getContext().startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 
     /**
      * Task View Holder
      */
-    protected class TaskViewHolder {
+    protected static class TaskViewHolder {
         @BindView(R.id.listItemTxtName)
         protected TextView txtName;
         @BindView(R.id.listItemTxtPriority)

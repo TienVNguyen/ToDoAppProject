@@ -6,5 +6,32 @@
   -->
 
 <resources>
-    <string name="app_name">ToDoAppProject</string>
+    <string name="app_name">To Do App Project</string>
+    <string name="title_activity_main">主な活動</string>
+    <string name="title_activity_add">アクティビティの追加</string>
+    <string name="title_activity_edit_or_remove">編集またはアクティビティを削除します</string>
+    <string name="menu_filter_option">フィルタ</string>
+    <string name="text_empty_list">データなし</string>
+    <string name="text_name">名</string>
+    <string name="text_details">細部</string>
+    <string name="text_priority">優先</string>
+    <string name="text_status">状態</string>
+    <string name="text_percent">パーセント</string>
+    <string name="text_percent_0">0%</string>
+    <string name="text_completed">完成しました</string>
+    <string name="text_started_date">開始日</string>
+    <string name="text_due_date">期日</string>
+    <string name="btn_add">加えます</string>
+    <string name="btn_edit">編集</string>
+    <string name="btn_remove">削除します</string>
+    <string-array name="spinner_priority">
+        <item>ロー</item>
+        <item>ノーマル</item>
+        <item>高い</item>
+    </string-array>
+    <string-array name="spinner_status">
+        <item>起動しません</item>
+        <item>進行中</item>
+        <item>終わりました</item>
+    </string-array>
 </resources>

@@ -6,10 +6,10 @@
   -->
 
 <resources>
-    <string name="app_name">ToDoAppProject</string>
+    <string name="app_name">To Do App Project</string>
     <string name="title_activity_main">Main Activity</string>
     <string name="title_activity_add">Add Activity</string>
-    <string name="title_activity_edit_or_remove">Edit or Update Activity</string>
+    <string name="title_activity_edit_or_remove">Edit or Remove Activity</string>
     <string name="menu_filter_option">Filter</string>
     <string name="text_empty_list">No Data</string>
     <string name="text_name">Name</string>
@@ -22,6 +22,8 @@
     <string name="text_started_date">Started date</string>
     <string name="text_due_date">Due date</string>
     <string name="btn_add">Add</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_remove">Remove</string>
     <string-array name="spinner_priority">
         <item>Low</item>
         <item>Normal</item>

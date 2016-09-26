@@ -10,7 +10,7 @@
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.training.tiennguyen.todoappproject.activities.AddActivity">
+    tools:context=".activities.AddActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

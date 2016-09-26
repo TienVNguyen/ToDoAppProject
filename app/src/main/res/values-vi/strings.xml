@@ -6,5 +6,32 @@
   -->
 
 <resources>
-    <string name="app_name">ToDoAppProject</string>
+    <string name="app_name">To Do App Project</string>
+    <string name="title_activity_main">Trang danh sách</string>
+    <string name="title_activity_add">Trang thêm</string>
+    <string name="title_activity_edit_or_remove">Trang cập nhật hay hiển thị</string>
+    <string name="menu_filter_option">Lọc</string>
+    <string name="text_empty_list">Không Dữ Liệu</string>
+    <string name="text_name">tên</string>
+    <string name="text_details">Chi tiết</string>
+    <string name="text_priority">Mức độ</string>
+    <string name="text_status">Tình trạng</string>
+    <string name="text_percent">Phần trăm</string>
+    <string name="text_percent_0">0%</string>
+    <string name="text_completed">Hoàn tất</string>
+    <string name="text_started_date">Ngày bắt đầu</string>
+    <string name="text_due_date">Ngày hết hạn</string>
+    <string name="btn_add">Thêm</string>
+    <string name="btn_edit">Sửa</string>
+    <string name="btn_remove">Xoá</string>
+    <string-array name="spinner_priority">
+        <item>Thấp</item>
+        <item>Trung</item>
+        <item>Cao</item>
+    </string-array>
+    <string-array name="spinner_status">
+        <item>Chưa bắt đầu</item>
+        <item>Đang thực hiện</item>
+        <item>Hoàn tất</item>
+    </string-array>
 </resources>
