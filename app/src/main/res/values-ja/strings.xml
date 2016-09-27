@@ -21,6 +21,16 @@
     <string name="text_completed">完成しました</string>
     <string name="text_started_date">開始日</string>
     <string name="text_due_date">期日</string>
+    <string name="edt_name_error_empty">名前が必要です</string>
+    <string name="error_add">エラーを追加します</string>
+    <string name="error_edit">編集エラー</string>
+    <string name="error_remove">エラーを削除します</string>
+    <string name="error_load_details">負荷の詳細エラー</string>
+    <string name="successfully_add">正常に追加</string>
+    <string name="successfully_edit">正常に編集</string>
+    <string name="successfully_remove">正常に削除</string>
+    <string name="remove_title_confirm">削除します</string>
+    <string name="remove_message_confirm">あなたが削除してもよろしいですか？</string>
     <string name="btn_add">加えます</string>
     <string name="btn_edit">編集</string>
     <string name="btn_remove">削除します</string>

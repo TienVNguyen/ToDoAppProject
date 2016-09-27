@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent intent = new Intent(getBaseContext(), AddActivity.class);
+                final Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
             }
         });
@@ -114,10 +114,10 @@ public class MainActivity extends AppCompatActivity {
         pbList.setVisibility(View.VISIBLE);
         lvTasks.setEmptyView(txtEmptyList);
 
-        final TaskDBHelper dbHelper = new TaskDBHelper(getApplicationContext());
+        final TaskDBHelper dbHelper = new TaskDBHelper(MainActivity.this);
         final List<TaskModel> list = dbHelper.selectAllTasks();
         if (list.size() > 0) {
-            final TaskAdapter adapter = new TaskAdapter(getApplicationContext(), R.layout.list_tasks_item, list);
+            final TaskAdapter adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
             lvTasks.setAdapter(adapter);
             pbList.setVisibility(View.GONE);
         } else {

@@ -11,7 +11,7 @@ import android.provider.BaseColumns;
 
 /**
  * {@link TaskDBContract}
- * 
+ * <p>
  * Created by TienVNguyen
  */
 class TaskDBContract {

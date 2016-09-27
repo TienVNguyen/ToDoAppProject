@@ -21,6 +21,16 @@
     <string name="text_completed">Hoàn tất</string>
     <string name="text_started_date">Ngày bắt đầu</string>
     <string name="text_due_date">Ngày hết hạn</string>
+    <string name="edt_name_error_empty">Name is required</string>
+    <string name="error_add">Lỗi thêm</string>
+    <string name="error_edit">Lỗi cập nhật</string>
+    <string name="error_remove">Lỗi xoá</string>
+    <string name="error_load_details">Lỗi đổ dữ liệu</string>
+    <string name="successfully_add">Thêm thành công</string>
+    <string name="successfully_edit">Cập nhật thành công</string>
+    <string name="successfully_remove">Xoá thành công</string>
+    <string name="remove_title_confirm">XOÁ</string>
+    <string name="remove_message_confirm">Bạn thực sự muốn xoá?</string>
     <string name="btn_add">Thêm</string>
     <string name="btn_edit">Sửa</string>
     <string name="btn_remove">Xoá</string>

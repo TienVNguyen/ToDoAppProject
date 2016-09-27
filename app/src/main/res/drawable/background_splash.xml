@@ -12,7 +12,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/task_launcher" />
+            android:src="@drawable/task_launcher_background" />
     </item>
 
 </layer-list>

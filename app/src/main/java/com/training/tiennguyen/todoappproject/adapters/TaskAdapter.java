@@ -77,9 +77,10 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(getContext(), EditOrRemoveActivity.class);
+                final Context context = getContext();
+                final Intent intent = new Intent(context, EditOrRemoveActivity.class);
                 intent.putExtra(VariableConstant.TASK_DETAILS_INTENT, model);
-                getContext().startActivity(intent);
+                context.startActivity(intent);
             }
         });
 

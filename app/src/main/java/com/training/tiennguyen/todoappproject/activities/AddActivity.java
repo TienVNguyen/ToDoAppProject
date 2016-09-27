@@ -7,8 +7,10 @@
 
 package com.training.tiennguyen.todoappproject.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,9 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.training.tiennguyen.todoappproject.R;
+import com.training.tiennguyen.todoappproject.constants.VariableConstant;
 import com.training.tiennguyen.todoappproject.databases.TaskDBHelper;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
 import com.training.tiennguyen.todoappproject.utils.DateUtils;
+import com.training.tiennguyen.todoappproject.utils.StringUtil;
 
 import java.util.Date;
 
@@ -100,28 +104,26 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    case 0:
-                        // Not start
+                    case 0: // Not start
                         seekBarPercent.setProgress(0);
                         break;
-                    case 2:
-                        // Done
+                    case 2: // Done
                         seekBarPercent.setProgress(100);
                         break;
-                    default:
-                        // In progress
+                    default: // In progress
                         seekBarPercent.setProgress(50);
                         break;
                 }
-                txtPercent.setText(seekBarPercent.getProgress() + "% of" + seekBarPercent.getMax() + "%");
+                txtPercent.setText(seekBarPercent.getProgress() + "% / " + seekBarPercent.getMax() + "%");
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         // Populate data for Percent
-        txtPercent.setText(seekBarPercent.getProgress() + "% of" + seekBarPercent.getMax() + "%");
+        txtPercent.setText(seekBarPercent.getProgress() + "% / " + seekBarPercent.getMax() + "%");
         seekBarPercent.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int currentProgress = 0;
 
@@ -131,11 +133,12 @@ public class AddActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                txtPercent.setText(seekBar.getProgress() + "% of" + seekBar.getMax() + "%");
+                txtPercent.setText(seekBar.getProgress() + "% / " + seekBar.getMax() + "%");
                 switch (seekBar.getProgress()) {
                     case 0:
                         spinnerStatus.setSelection(0);
@@ -155,26 +158,55 @@ public class AddActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Date date = new Date();
-                final TaskModel model = new TaskModel();
-                model.setmName(txtName.getText().toString());
-                model.setmDetails(txtDetails.getText().toString());
-                model.setmPriority(spinnerPriority.getSelectedItem().toString());
-                model.setmStatus(spinnerStatus.getSelectedItem().toString());
-                model.setmPercent(seekBarPercent.getProgress());
-                model.setmCreatedDate(date);
-                model.setmUpdatedDate(date);
-                model.setmStartedDate(DateUtils.getDateFromDatePicker(datePickerStartedDate));
-                model.setmDueDate(DateUtils.getDateFromDatePicker(datePickerDueDate));
-
-                final TaskDBHelper dbHelper = new TaskDBHelper(getApplicationContext());
-                if (dbHelper.insertTask(model) > 0) {
-                    finish();
-                } else {
-                    txtName.requestFocus();
-                    Toast.makeText(AddActivity.this, "ERROR_ADD", Toast.LENGTH_SHORT).show();
-                }
+                addFunction(v);
             }
         });
+    }
+
+    /**
+     * Add Function
+     *
+     * @param view View
+     */
+    private void addFunction(View view) {
+        if (validateFields(view)) {
+            final Date date = new Date();
+            final TaskModel model = new TaskModel();
+            model.setmName(txtName.getText().toString());
+            model.setmDetails(txtDetails.getText().toString());
+            model.setmPriority(spinnerPriority.getSelectedItem().toString());
+            model.setmStatus(spinnerStatus.getSelectedItem().toString());
+            model.setmPercent(seekBarPercent.getProgress());
+            model.setmCreatedDate(date);
+            model.setmUpdatedDate(date);
+            model.setmStartedDate(DateUtils.getDateFromDatePicker(datePickerStartedDate));
+            model.setmDueDate(DateUtils.getDateFromDatePicker(datePickerDueDate));
+
+            final Context context = getApplicationContext();
+            final TaskDBHelper dbHelper = new TaskDBHelper(context);
+            if (dbHelper.insertTask(model) > 0) {
+                Toast.makeText(context, getString(R.string.successfully_add) + model.getmName(), Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                txtName.requestFocus();
+                Toast.makeText(context, getString(R.string.error_add), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * Validate Fields
+     *
+     * @param view View
+     * @return boolean
+     */
+    private boolean validateFields(View view) {
+        if (StringUtil.isEmpty(txtName.getText().toString())) {
+            txtName.requestFocus();
+            Snackbar.make(view, getString(R.string.edt_name_error_empty), Snackbar.LENGTH_LONG).setAction(VariableConstant.ACTION, null).show();
+            return false;
+        }
+
+        return true;
     }
 }

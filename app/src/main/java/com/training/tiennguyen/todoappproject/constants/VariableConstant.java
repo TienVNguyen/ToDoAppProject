@@ -8,7 +8,7 @@
 package com.training.tiennguyen.todoappproject.constants;
 
 /**
- * VariableConstant
+ * Variable Constant
  *
  * @author TienVNguyen
  */
@@ -17,4 +17,9 @@ public final class VariableConstant {
      * TASK_DETAILS_INTENT
      */
     public static final String TASK_DETAILS_INTENT = "TASK_DETAILS_INTENT";
+
+    /**
+     * ACTION
+     */
+    public static final String ACTION = "Action";
 }

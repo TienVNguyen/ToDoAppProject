@@ -21,6 +21,16 @@
     <string name="text_completed">Completed</string>
     <string name="text_started_date">Started date</string>
     <string name="text_due_date">Due date</string>
+    <string name="edt_name_error_empty">Name is required</string>
+    <string name="error_add">Add Error</string>
+    <string name="error_edit">Edit Error</string>
+    <string name="error_remove">Remove Error</string>
+    <string name="error_load_details">Load Details Error</string>
+    <string name="successfully_add">Add Successfully</string>
+    <string name="successfully_edit">Edit Successfully</string>
+    <string name="successfully_remove">Remove Successfully</string>
+    <string name="remove_title_confirm">REMOVE</string>
+    <string name="remove_message_confirm">Do you want to remove?</string>
     <string name="btn_add">Add</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_remove">Remove</string>
