@@ -10,6 +10,7 @@ package com.training.tiennguyen.todoappproject.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,9 @@ import com.training.tiennguyen.todoappproject.activities.EditOrRemoveActivity;
 import com.training.tiennguyen.todoappproject.constants.VariableConstant;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,10 +58,11 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Caching
         final TaskViewHolder holder;
+        final Context context = getContext();
         if (convertView != null) {
             holder = (TaskViewHolder) convertView.getTag();
         } else {
-            convertView = LayoutInflater.from(getContext()).inflate(mResource, parent, false);
+            convertView = LayoutInflater.from(context).inflate(mResource, parent, false);
             holder = new TaskViewHolder(convertView);
             convertView.setTag(holder);
         }
@@ -67,10 +71,23 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
         final TaskModel model = getItem(position);
         if (model != null) {
             holder.txtName.setText(model.getmName());
-            holder.txtPriority.setText(model.getmPriority());
+
+            String priority = model.getmPriority();
+            String[] priorities = context.getResources().getStringArray(R.array.spinner_priority);
+            if (priority.equalsIgnoreCase(priorities[0])) {
+                holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorCyan));
+            } else if (priority.equalsIgnoreCase(priorities[1])) {
+                holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorLime));
+            } else {
+                holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorRed));
+            }
+            holder.txtPriority.setText(priority);
+
             holder.txtStatus.setText(model.getmStatus());
             holder.txtPercent.setText(String.valueOf(model.getmPercent()));
-            holder.txtDueDate.setText(model.getmDueDate().toString());
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            holder.txtDueDate.setText(sdf.format(model.getmDueDate()));
         }
 
         // Activities Edit/Remove

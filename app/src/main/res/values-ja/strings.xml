@@ -21,6 +21,8 @@
     <string name="text_completed">完成しました</string>
     <string name="text_started_date">開始日</string>
     <string name="text_due_date">期日</string>
+    <string name="text_separate"> - </string>
+    <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">名前が必要です</string>
     <string name="error_add">エラーを追加します</string>
     <string name="error_edit">編集エラー</string>

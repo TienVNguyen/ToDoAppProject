@@ -5,39 +5,63 @@
   ~ Written by TienVNguyen <tien.workinfo@gmail.com - tien.workinfo@icloud.com>, October 2015
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/listItemTxtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_name"
+        android:textSize="@dimen/text_bold"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/listItemTxtPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:text="@string/text_priority" />
 
     <TextView
         android:id="@+id/listItemTxtStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/listItemTxtName"
         android:text="@string/text_status" />
+
+    <TextView
+        android:id="@+id/listItemTxtSeparate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listItemTxtName"
+        android:layout_toRightOf="@id/listItemTxtStatus"
+        android:text="@string/text_separate" />
 
     <TextView
         android:id="@+id/listItemTxtPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/listItemTxtName"
+        android:layout_toRightOf="@+id/listItemTxtSeparate"
         android:text="@string/text_percent" />
+
+    <TextView
+        android:id="@+id/listItemTxtSeparatePercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listItemTxtName"
+        android:layout_toRightOf="@+id/listItemTxtPercent"
+        android:text="@string/text_percent_char" />
 
     <TextView
         android:id="@+id/listItemTxtDueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/listItemTxtPriority"
         android:text="@string/text_due_date" />
-</LinearLayout>
+</RelativeLayout>

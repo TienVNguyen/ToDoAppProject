@@ -21,6 +21,8 @@
     <string name="text_completed">Hoàn tất</string>
     <string name="text_started_date">Ngày bắt đầu</string>
     <string name="text_due_date">Ngày hết hạn</string>
+    <string name="text_separate"> - </string>
+    <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">Name is required</string>
     <string name="error_add">Lỗi thêm</string>
     <string name="error_edit">Lỗi cập nhật</string>

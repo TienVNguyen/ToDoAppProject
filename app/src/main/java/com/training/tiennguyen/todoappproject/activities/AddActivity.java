@@ -177,6 +177,7 @@ public class AddActivity extends AppCompatActivity {
             model.setmPriority(spinnerPriority.getSelectedItem().toString());
             model.setmStatus(spinnerStatus.getSelectedItem().toString());
             model.setmPercent(seekBarPercent.getProgress());
+            model.setmCompleted(checkBoxCompleted.isChecked());
             model.setmCreatedDate(date);
             model.setmUpdatedDate(date);
             model.setmStartedDate(DateUtils.getDateFromDatePicker(datePickerStartedDate));

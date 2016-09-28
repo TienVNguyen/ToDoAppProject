@@ -102,6 +102,8 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         txtDetails.setText(taskModel.getmDetails());
         txtPercent.setText(String.valueOf(taskModel.getmPercent()));
         checkBoxCompleted.setChecked(taskModel.ismCompleted());
+        datePickerStartedDate.setMinDate(taskModel.getmStartedDate().getTime());
+        datePickerDueDate.setMinDate(taskModel.getmDueDate().getTime());
 
         // Populate data for Priority
         final ArrayAdapter<CharSequence> adapterPriority = ArrayAdapter.createFromResource(this,
@@ -109,6 +111,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         adapterPriority.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPriority.setAdapter(adapterPriority);
         spinnerPriority.setSelection(adapterPriority.getPosition(taskModel.getmPriority()));
+        spinnerPriority.refreshDrawableState();
 
         // Populate data for Status
         final ArrayAdapter<CharSequence> adapterStatus = ArrayAdapter.createFromResource(this,
@@ -116,6 +119,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(adapterStatus);
         spinnerStatus.setSelection(adapterPriority.getPosition(taskModel.getmStatus()));
+        spinnerPriority.refreshDrawableState();
         spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -140,6 +144,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
 
         // Populate data for Percent
         seekBarPercent.setProgress(taskModel.getmPercent());
+        seekBarPercent.refreshDrawableState();
         txtPercent.setText(seekBarPercent.getProgress() + "% / " + seekBarPercent.getMax() + "%");
         seekBarPercent.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int currentProgress = taskModel.getmPercent();
@@ -260,7 +265,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         model.setmPriority(spinnerPriority.getSelectedItem().toString());
         model.setmStatus(spinnerStatus.getSelectedItem().toString());
         model.setmPercent(seekBarPercent.getProgress());
-        model.setmCreatedDate(date);
+        model.setmRemoved(true);
         model.setmUpdatedDate(date);
         model.setmStartedDate(DateUtils.getDateFromDatePicker(datePickerStartedDate));
         model.setmDueDate(DateUtils.getDateFromDatePicker(datePickerDueDate));

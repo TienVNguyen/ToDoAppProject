@@ -24,12 +24,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AddActivity" />
-        <activity android:name=".activities.EditOrRemoveActivity" />
+
+        <activity
+            android:name=".activities.AddActivity"
+            android:label="@string/title_activity_add" />
+
+        <activity
+            android:name=".activities.EditOrRemoveActivity"
+            android:label="@string/title_activity_edit_or_remove" />
     </application>
 
 </manifest>

@@ -21,6 +21,8 @@
     <string name="text_completed">Completed</string>
     <string name="text_started_date">Started date</string>
     <string name="text_due_date">Due date</string>
+    <string name="text_separate"> - </string>
+    <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">Name is required</string>
     <string name="error_add">Add Error</string>
     <string name="error_edit">Edit Error</string>

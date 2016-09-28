@@ -221,9 +221,6 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         contentValues.put(TaskDBContract.TaskContain.COLUMN_PERCENT, taskModel.getmPercent());
         contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.ismRemoved() ? 1 : 0);
         contentValues.put(TaskDBContract.TaskContain.COLUMN_COMPLETED, taskModel.ismCompleted() ? 1 : 0);
-        if (StringUtil.isNotNull(taskModel.getmCreatedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_CREATED_DATE, taskModel.getmCreatedDate().getTime());
-        }
         if (StringUtil.isNotNull(taskModel.getmUpdatedDate())) {
             contentValues.put(TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, taskModel.getmUpdatedDate().getTime());
         }
@@ -263,6 +260,14 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         // Get the lock
         final SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
+        // New value for one column
+        final ContentValues contentValues = new ContentValues();
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_NAME, taskModel.getmName());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.getmName());
+        if (StringUtil.isNotNull(taskModel.getmUpdatedDate())) {
+            contentValues.put(TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, taskModel.getmUpdatedDate().getTime());
+        }
+
         // Which row to delete, based on the NAME
         final String selection = TaskDBContract.TaskContain.COLUMN_NAME + DatabaseConstant.SELECTION_IS;
 
@@ -270,8 +275,13 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         final String[] selectionArgs = {String.valueOf(taskModel.getmName())};
 
         // Delete
-        int count = sqLiteDatabase.delete(
+        /*final int count = sqLiteDatabase.delete(
                 TaskDBContract.TaskContain.TABLE_NAME,
+                selection,
+                selectionArgs);*/
+        final int count = sqLiteDatabase.update(
+                TaskDBContract.TaskContain.TABLE_NAME,
+                contentValues,
                 selection,
                 selectionArgs);
 

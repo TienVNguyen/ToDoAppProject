@@ -21,6 +21,8 @@
     <string name="text_completed">완료</string>
     <string name="text_started_date">시작 날짜</string>
     <string name="text_due_date">마감일</string>
+    <string name="text_separate"> - </string>
+    <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">이름이 필요합니다</string>
     <string name="error_add">오류 추가</string>
     <string name="error_edit">편집 오류</string>

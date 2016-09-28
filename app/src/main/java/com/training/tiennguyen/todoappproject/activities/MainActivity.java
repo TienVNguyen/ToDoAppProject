@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,6 +25,8 @@ import com.training.tiennguyen.todoappproject.R;
 import com.training.tiennguyen.todoappproject.adapters.TaskAdapter;
 import com.training.tiennguyen.todoappproject.databases.TaskDBHelper;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        initViews();
+        populateDataForList();
     }
 
     @Override
@@ -112,17 +115,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private void populateDataForList() {
         pbList.setVisibility(View.VISIBLE);
-        lvTasks.setEmptyView(txtEmptyList);
 
         final TaskDBHelper dbHelper = new TaskDBHelper(MainActivity.this);
         final List<TaskModel> list = dbHelper.selectAllTasks();
-        if (list.size() > 0) {
-            final TaskAdapter adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
-            lvTasks.setAdapter(adapter);
-            pbList.setVisibility(View.GONE);
-        } else {
-            pbList.setVisibility(View.GONE);
-        }
+        final TaskAdapter adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
+        lvTasks.setAdapter(adapter);
+        lvTasks.setEmptyView(txtEmptyList);
+        pbList.setVisibility(View.GONE);
     }
 
     /**
