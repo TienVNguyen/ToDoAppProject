@@ -25,6 +25,8 @@
     <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">Name is required</string>
     <string name="error_add">Lỗi thêm</string>
+    <string name="error_add_duplicated">Lỗi thêm trùng tên</string>
+    <string name="error_date">Ngày không phù hợp</string>
     <string name="error_edit">Lỗi cập nhật</string>
     <string name="error_remove">Lỗi xoá</string>
     <string name="error_load_details">Lỗi đổ dữ liệu</string>

@@ -12,12 +12,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -32,6 +35,7 @@ import com.training.tiennguyen.todoappproject.models.TaskModel;
 import com.training.tiennguyen.todoappproject.utils.DateUtils;
 import com.training.tiennguyen.todoappproject.utils.StringUtil;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -75,12 +79,32 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         initViews();
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * Init Views
      */
     private void initViews() {
         ButterKnife.bind(this);
 
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.title_activity_edit_or_remove));
 
         final TaskModel taskModel = getIntent().getParcelableExtra(VariableConstant.TASK_DETAILS_INTENT);
@@ -100,10 +124,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     private void loadViews(final TaskModel taskModel) {
         txtName.setText(taskModel.getmName());
         txtDetails.setText(taskModel.getmDetails());
-        txtPercent.setText(String.valueOf(taskModel.getmPercent()));
-        checkBoxCompleted.setChecked(taskModel.ismCompleted());
-        datePickerStartedDate.setMinDate(taskModel.getmStartedDate().getTime());
-        datePickerDueDate.setMinDate(taskModel.getmDueDate().getTime());
+        txtDetails.requestFocus();
 
         // Populate data for Priority
         final ArrayAdapter<CharSequence> adapterPriority = ArrayAdapter.createFromResource(this,
@@ -118,20 +139,23 @@ public class EditOrRemoveActivity extends AppCompatActivity {
                 R.array.spinner_status, android.R.layout.simple_spinner_item);
         adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(adapterStatus);
-        spinnerStatus.setSelection(adapterPriority.getPosition(taskModel.getmStatus()));
-        spinnerPriority.refreshDrawableState();
+        spinnerStatus.setSelection(adapterStatus.getPosition(taskModel.getmStatus()));
+        spinnerStatus.refreshDrawableState();
         spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0: // Not start
                         seekBarPercent.setProgress(0);
+                        checkBoxCompleted.setChecked(false);
                         break;
                     case 2: // Done
                         seekBarPercent.setProgress(100);
+                        checkBoxCompleted.setChecked(true);
                         break;
                     default: // In progress
                         seekBarPercent.setProgress(50);
+                        checkBoxCompleted.setChecked(false);
                         break;
                 }
                 txtPercent.setText(seekBarPercent.getProgress() + "% / " + seekBarPercent.getMax() + "%");
@@ -143,7 +167,9 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         });
 
         // Populate data for Percent
-        seekBarPercent.setProgress(taskModel.getmPercent());
+        final int position = taskModel.getmPercent();
+        txtPercent.setText(String.valueOf(position));
+        seekBarPercent.setProgress(position);
         seekBarPercent.refreshDrawableState();
         txtPercent.setText(seekBarPercent.getProgress() + "% / " + seekBarPercent.getMax() + "%");
         seekBarPercent.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -155,8 +181,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -164,17 +189,43 @@ public class EditOrRemoveActivity extends AppCompatActivity {
                 switch (seekBar.getProgress()) {
                     case 0:
                         spinnerStatus.setSelection(0);
+                        checkBoxCompleted.setChecked(false);
                         break;
                     case 100:
                         spinnerStatus.setSelection(2);
+                        checkBoxCompleted.setChecked(true);
                         break;
                     default:
                         spinnerStatus.setSelection(1);
+                        checkBoxCompleted.setChecked(false);
                         break;
                 }
                 adapterStatus.notifyDataSetChanged();
             }
         });
+
+        checkBoxCompleted.setChecked(taskModel.ismCompleted());
+        checkBoxCompleted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    seekBarPercent.setProgress(100);
+                    spinnerStatus.setSelection(2);
+                } else {
+                    seekBarPercent.setProgress(50);
+                    spinnerStatus.setSelection(1);
+                }
+            }
+        });
+
+        final Date currentDate = new Date();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(taskModel.getmStartedDate());
+        datePickerStartedDate.setMinDate(currentDate.getTime());
+        datePickerStartedDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        calendar.setTime(taskModel.getmDueDate());
+        datePickerDueDate.setMinDate(currentDate.getTime());
+        datePickerDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,16 +246,15 @@ public class EditOrRemoveActivity extends AppCompatActivity {
      * Remove Function
      */
     private void RemoveFunction() {
-        final TaskModel model = buildObjectTask();
         new android.support.v7.app.AlertDialog.Builder(EditOrRemoveActivity.this)
                 .setTitle(getString(R.string.remove_title_confirm))
                 .setMessage(getString(R.string.remove_message_confirm))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        final TaskModel model = buildObjectTask(true);
                         final Context context = getApplicationContext();
                         final TaskDBHelper taskDBHelper = new TaskDBHelper(context);
-                        int result = taskDBHelper.deleteTask(model);
-                        if (result > 0) {
+                        if (taskDBHelper.deleteTask(model) > 0) {
                             Toast.makeText(context, getString(R.string.successfully_remove) + model.getmName(), Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
@@ -222,9 +272,9 @@ public class EditOrRemoveActivity extends AppCompatActivity {
      *
      * @param view View
      */
-    private void EditFunction(View view) {
+    private void EditFunction(final View view) {
         if (validateFields(view)) {
-            final TaskModel model = buildObjectTask();
+            final TaskModel model = buildObjectTask(false);
             final Context context = getApplicationContext();
             final TaskDBHelper dbHelper = new TaskDBHelper(context);
             if (dbHelper.updateTask(model) > 0) {
@@ -242,10 +292,18 @@ public class EditOrRemoveActivity extends AppCompatActivity {
      * @param view View
      * @return boolean
      */
-    private boolean validateFields(View view) {
+    private boolean validateFields(final View view) {
         if (StringUtil.isEmpty(txtName.getText().toString())) {
             txtName.requestFocus();
             Snackbar.make(view, getString(R.string.edt_name_error_empty), Snackbar.LENGTH_LONG).setAction(VariableConstant.ACTION, null).show();
+            return false;
+        }
+
+        final Date startedDate = DateUtils.getDateFromDatePicker(datePickerStartedDate);
+        final Date dueDate = DateUtils.getDateFromDatePicker(datePickerDueDate);
+        if (startedDate.compareTo(dueDate) > 0) {
+            datePickerStartedDate.requestFocus();
+            Snackbar.make(view, getString(R.string.error_date), Snackbar.LENGTH_LONG).setAction(VariableConstant.ACTION, null).show();
             return false;
         }
 
@@ -255,9 +313,10 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     /**
      * Build Object Task
      *
+     * @param isRemoved boolean
      * @return TaskModel
      */
-    private TaskModel buildObjectTask() {
+    private TaskModel buildObjectTask(final boolean isRemoved) {
         final Date date = new Date();
         final TaskModel model = new TaskModel();
         model.setmName(txtName.getText().toString());
@@ -265,7 +324,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         model.setmPriority(spinnerPriority.getSelectedItem().toString());
         model.setmStatus(spinnerStatus.getSelectedItem().toString());
         model.setmPercent(seekBarPercent.getProgress());
-        model.setmRemoved(true);
+        model.setmRemoved(isRemoved);
         model.setmUpdatedDate(date);
         model.setmStartedDate(DateUtils.getDateFromDatePicker(datePickerStartedDate));
         model.setmDueDate(DateUtils.getDateFromDatePicker(datePickerDueDate));

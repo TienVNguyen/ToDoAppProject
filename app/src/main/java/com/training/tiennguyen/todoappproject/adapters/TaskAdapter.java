@@ -70,7 +70,15 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
         // Populating
         final TaskModel model = getItem(position);
         if (model != null) {
-            holder.txtName.setText(model.getmName());
+            String name = model.getmName();
+            if (name.length() > 25) {
+                name = name.substring(25);
+                name += "...";
+            }
+            holder.txtName.setText(name);
+
+            holder.txtStatus.setText(model.getmStatus());
+            holder.txtPercent.setText(String.valueOf(model.getmPercent()));
 
             String priority = model.getmPriority();
             String[] priorities = context.getResources().getStringArray(R.array.spinner_priority);
@@ -82,9 +90,6 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
                 holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorRed));
             }
             holder.txtPriority.setText(priority);
-
-            holder.txtStatus.setText(model.getmStatus());
-            holder.txtPercent.setText(String.valueOf(model.getmPercent()));
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             holder.txtDueDate.setText(sdf.format(model.getmDueDate()));
@@ -110,12 +115,12 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
     protected static class TaskViewHolder {
         @BindView(R.id.listItemTxtName)
         protected TextView txtName;
-        @BindView(R.id.listItemTxtPriority)
-        protected TextView txtPriority;
         @BindView(R.id.listItemTxtStatus)
         protected TextView txtStatus;
         @BindView(R.id.listItemTxtPercent)
         protected TextView txtPercent;
+        @BindView(R.id.listItemTxtPriority)
+        protected TextView txtPriority;
         @BindView(R.id.listItemTxtDueDate)
         protected TextView txtDueDate;
 

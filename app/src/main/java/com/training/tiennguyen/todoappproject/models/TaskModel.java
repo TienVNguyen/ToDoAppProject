@@ -99,10 +99,10 @@ public class TaskModel implements Parcelable {
         mPercent = in.readInt();
         mRemoved = in.readByte() != 0;
         mCompleted = in.readByte() != 0;
-        mCreatedDate = new Date(in.readInt());
-        mUpdatedDate = new Date(in.readInt());
-        mStartedDate = new Date(in.readInt());
-        mDueDate = new Date(in.readInt());
+        mCreatedDate = new Date(in.readLong());
+        mUpdatedDate = new Date(in.readLong());
+        mStartedDate = new Date(in.readLong());
+        mDueDate = new Date(in.readLong());
     }
 
     @Override

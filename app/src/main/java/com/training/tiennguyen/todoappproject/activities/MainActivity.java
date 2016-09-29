@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,8 +25,7 @@ import com.training.tiennguyen.todoappproject.adapters.TaskAdapter;
 import com.training.tiennguyen.todoappproject.databases.TaskDBHelper;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
 
-import org.json.JSONArray;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     protected TextView txtEmptyList;
     @BindView(R.id.lvTasks)
     protected ListView lvTasks;
+
+    private TaskAdapter adapter;
+    private List<TaskModel> list = new ArrayList<>();
 
     @Override
     protected void onResume() {
@@ -107,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        populateDataForList();
+        adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
+        lvTasks.setAdapter(adapter);
+        lvTasks.setEmptyView(txtEmptyList);
     }
 
     /**
@@ -116,11 +119,14 @@ public class MainActivity extends AppCompatActivity {
     private void populateDataForList() {
         pbList.setVisibility(View.VISIBLE);
 
+        adapter.clear();
+
         final TaskDBHelper dbHelper = new TaskDBHelper(MainActivity.this);
-        final List<TaskModel> list = dbHelper.selectAllTasks();
-        final TaskAdapter adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
-        lvTasks.setAdapter(adapter);
-        lvTasks.setEmptyView(txtEmptyList);
+        list = dbHelper.selectAllTasks();
+        if (list.size() > 0)
+            adapter.addAll(list);
+        adapter.notifyDataSetChanged();
+
         pbList.setVisibility(View.GONE);
     }
 

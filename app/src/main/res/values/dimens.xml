@@ -10,6 +10,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_bold">32sp</dimen>
+    <dimen name="text_bold">16sp</dimen>
     <dimen name="text_empty_list">64sp</dimen>
 </resources>

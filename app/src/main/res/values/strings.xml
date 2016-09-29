@@ -25,6 +25,8 @@
     <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">Name is required</string>
     <string name="error_add">Add Error</string>
+    <string name="error_add_duplicated">Add Error Duplicated Name</string>
+    <string name="error_date">Date is not suitable</string>
     <string name="error_edit">Edit Error</string>
     <string name="error_remove">Remove Error</string>
     <string name="error_load_details">Load Details Error</string>

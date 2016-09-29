@@ -25,6 +25,8 @@
     <string name="text_percent_char">%</string>
     <string name="edt_name_error_empty">이름이 필요합니다</string>
     <string name="error_add">오류 추가</string>
+    <string name="error_add_duplicated">エラー重複名前の追加</string>
+    <string name="error_date">日付は適していません</string>
     <string name="error_edit">편집 오류</string>
     <string name="error_remove">오류를 제거</string>
     <string name="error_load_details">로드 세부 정보 오류</string>

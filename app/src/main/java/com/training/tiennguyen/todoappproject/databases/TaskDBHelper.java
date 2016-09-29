@@ -15,7 +15,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.training.tiennguyen.todoappproject.constants.DatabaseConstant;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
-import com.training.tiennguyen.todoappproject.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,13 +33,13 @@ public class TaskDBHelper extends SQLiteOpenHelper {
      * DETAILS KEY ,
      * PRIORITY KEY  NOT NULL ,
      * STATUS KEY  NOT NULL ,
-     * PERCENT INTEGER KEY ,
-     * REMOVED INTEGER KEY ,
-     * COMPLETED INTEGER KEY ,
-     * CREATED_DATE INTEGER KEY ,
-     * UPDATED_DATE INTEGER KEY ,
-     * STARTED_DATE INTEGER KEY ,
-     * COLUMN_DUE_DATE INTEGER KEY
+     * PERCENT INTEGER ,
+     * REMOVED INTEGER ,
+     * COMPLETED INTEGER ,
+     * CREATED_DATE INTEGER ,
+     * UPDATED_DATE INTEGER ,
+     * STARTED_DATE INTEGER ,
+     * DUE_DATE INTEGER
      * ) ;
      */
     private static final String SQL_CREATE_ENTRIES = DatabaseConstant.CREATE_TABLE + TaskDBContract.TaskContain.TABLE_NAME
@@ -131,10 +130,10 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 taskModel.setmPercent(cursor.getInt(4));
                 taskModel.setmRemoved(cursor.getInt(5) == 1);
                 taskModel.setmCompleted(cursor.getInt(6) == 1);
-                taskModel.setmCreatedDate(new Date(cursor.getInt(7)));
-                taskModel.setmUpdatedDate(new Date(cursor.getInt(8)));
-                taskModel.setmStartedDate(new Date(cursor.getInt(9)));
-                taskModel.setmDueDate(new Date(cursor.getInt(10)));
+                taskModel.setmCreatedDate(new Date(cursor.getLong(7)));
+                taskModel.setmUpdatedDate(new Date(cursor.getLong(8)));
+                taskModel.setmStartedDate(new Date(cursor.getLong(9)));
+                taskModel.setmDueDate(new Date(cursor.getLong(10)));
                 resultSelect.add(taskModel);
             } while (cursor.moveToNext());
         }
@@ -157,32 +156,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         final SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
-        final ContentValues contentValues = new ContentValues();
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_NAME, taskModel.getmName());
-        if (!StringUtil.isEmpty(taskModel.getmDetails())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_DETAILS, taskModel.getmDetails());
-        }
-        if (!StringUtil.isEmpty(taskModel.getmPriority())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_PRIORITY, taskModel.getmPriority());
-        }
-        if (!StringUtil.isEmpty(taskModel.getmStatus())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_STATUS, taskModel.getmStatus());
-        }
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_PERCENT, taskModel.getmPercent());
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.ismRemoved() ? 1 : 0);
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_COMPLETED, taskModel.ismCompleted() ? 1 : 0);
-        if (StringUtil.isNotNull(taskModel.getmCreatedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_CREATED_DATE, taskModel.getmCreatedDate().getTime());
-        }
-        if (StringUtil.isNotNull(taskModel.getmUpdatedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, taskModel.getmUpdatedDate().getTime());
-        }
-        if (StringUtil.isNotNull(taskModel.getmStartedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_STARTED_DATE, taskModel.getmStartedDate().getTime());
-        }
-        if (StringUtil.isNotNull(taskModel.getmDueDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_DUE_DATE, taskModel.getmDueDate().getTime());
-        }
+        final ContentValues contentValues = createContentValues(taskModel);
 
         // Insert
         final long newRowId = sqLiteDatabase.insert(
@@ -207,29 +181,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         final SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         // New value for one column
-        final ContentValues contentValues = new ContentValues();
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_NAME, taskModel.getmName());
-        if (!StringUtil.isEmpty(taskModel.getmDetails())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_DETAILS, taskModel.getmDetails());
-        }
-        if (!StringUtil.isEmpty(taskModel.getmPriority())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_PRIORITY, taskModel.getmPriority());
-        }
-        if (!StringUtil.isEmpty(taskModel.getmStatus())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_STATUS, taskModel.getmStatus());
-        }
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_PERCENT, taskModel.getmPercent());
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.ismRemoved() ? 1 : 0);
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_COMPLETED, taskModel.ismCompleted() ? 1 : 0);
-        if (StringUtil.isNotNull(taskModel.getmUpdatedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, taskModel.getmUpdatedDate().getTime());
-        }
-        if (StringUtil.isNotNull(taskModel.getmStartedDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_STARTED_DATE, taskModel.getmStartedDate().getTime());
-        }
-        if (StringUtil.isNotNull(taskModel.getmDueDate())) {
-            contentValues.put(TaskDBContract.TaskContain.COLUMN_DUE_DATE, taskModel.getmDueDate().getTime());
-        }
+        final ContentValues contentValues = createContentValues(taskModel);
 
         // Which row to update, based on the NAME
         final String selection = TaskDBContract.TaskContain.COLUMN_NAME + DatabaseConstant.SELECTION_IS;
@@ -260,13 +212,13 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         // Get the lock
         final SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        // New value for one column
+        /*// New value for one column
         final ContentValues contentValues = new ContentValues();
         contentValues.put(TaskDBContract.TaskContain.COLUMN_NAME, taskModel.getmName());
-        contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.getmName());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.ismRemoved());
         if (StringUtil.isNotNull(taskModel.getmUpdatedDate())) {
             contentValues.put(TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, taskModel.getmUpdatedDate().getTime());
-        }
+        }*/
 
         // Which row to delete, based on the NAME
         final String selection = TaskDBContract.TaskContain.COLUMN_NAME + DatabaseConstant.SELECTION_IS;
@@ -275,19 +227,42 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         final String[] selectionArgs = {String.valueOf(taskModel.getmName())};
 
         // Delete
-        /*final int count = sqLiteDatabase.delete(
+        final int count = sqLiteDatabase.delete(
                 TaskDBContract.TaskContain.TABLE_NAME,
                 selection,
-                selectionArgs);*/
-        final int count = sqLiteDatabase.update(
+                selectionArgs);
+        /*final int count = sqLiteDatabase.update(
                 TaskDBContract.TaskContain.TABLE_NAME,
                 contentValues,
                 selection,
-                selectionArgs);
+                selectionArgs);*/
 
         // Close connection
         sqLiteDatabase.close();
 
         return count;
+    }
+
+    /**
+     * createContentValues
+     *
+     * @param taskModel TaskModel
+     * @return ContentValues
+     */
+    private ContentValues createContentValues(TaskModel taskModel) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_NAME, taskModel.getmName());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_DETAILS, taskModel.getmDetails());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_PRIORITY, taskModel.getmPriority());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_STATUS, taskModel.getmStatus());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_PERCENT, taskModel.getmPercent());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_REMOVED, taskModel.ismRemoved() ? 1 : 0);
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_COMPLETED, taskModel.ismCompleted() ? 1 : 0);
+        if (taskModel.getmCreatedDate() != null)
+            contentValues.put(TaskDBContract.TaskContain.COLUMN_CREATED_DATE, taskModel.getmCreatedDate().getTime());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_UPDATED_DATE, taskModel.getmUpdatedDate().getTime());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_STARTED_DATE, taskModel.getmStartedDate().getTime());
+        contentValues.put(TaskDBContract.TaskContain.COLUMN_DUE_DATE, taskModel.getmDueDate().getTime());
+        return contentValues;
     }
 }

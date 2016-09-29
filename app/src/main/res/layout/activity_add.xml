@@ -22,6 +22,7 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_name" />
@@ -30,9 +31,11 @@
             android:id="@+id/addTaskTxtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text_name" />
+            android:hint="@string/text_name"
+            android:maxLength="40" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_details" />
@@ -41,9 +44,11 @@
             android:id="@+id/addTaskTxtDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text_details" />
+            android:hint="@string/text_details"
+            android:maxLength="150" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_priority" />
@@ -54,6 +59,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_status" />
@@ -64,6 +70,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_percent" />
@@ -72,7 +79,7 @@
             android:id="@+id/addTaskTxtPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_percent" />
+            android:text="@string/text_percent_0" />
 
         <SeekBar
             android:id="@+id/addTaskSeekBarPercent"
@@ -81,6 +88,7 @@
             android:max="100" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_completed" />
@@ -92,6 +100,7 @@
             android:text="@string/text_completed" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_started_date" />
@@ -102,6 +111,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_due_date" />

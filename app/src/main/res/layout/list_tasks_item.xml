@@ -11,25 +11,17 @@
 
     <TextView
         android:id="@+id/listItemTxtName"
+        style="@style/TextViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_name"
-        android:textSize="@dimen/text_bold"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/listItemTxtPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/text_priority" />
+        android:text="@string/text_name" />
 
     <TextView
         android:id="@+id/listItemTxtStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listItemTxtName"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="@string/text_status" />
 
     <TextView
@@ -37,7 +29,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listItemTxtName"
+        android:layout_toEndOf="@id/listItemTxtStatus"
         android:layout_toRightOf="@id/listItemTxtStatus"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="@string/text_separate" />
 
     <TextView
@@ -45,7 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listItemTxtName"
+        android:layout_toEndOf="@+id/listItemTxtSeparate"
         android:layout_toRightOf="@+id/listItemTxtSeparate"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="@string/text_percent" />
 
     <TextView
@@ -53,8 +49,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listItemTxtName"
+        android:layout_toEndOf="@+id/listItemTxtPercent"
         android:layout_toRightOf="@+id/listItemTxtPercent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="@string/text_percent_char" />
+
+    <TextView
+        android:id="@+id/listItemTxtPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_priority"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/listItemTxtDueDate"
@@ -63,5 +71,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/listItemTxtPriority"
-        android:text="@string/text_due_date" />
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:text="@string/text_due_date"
+        android:textStyle="bold|italic" />
 </RelativeLayout>

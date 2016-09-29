@@ -9,7 +9,7 @@ package com.training.tiennguyen.todoappproject.constants;
 
 /**
  * {@link DatabaseConstant}
- * <p>
+ *
  * Created by TienVNguyen
  */
 public class DatabaseConstant {
@@ -21,7 +21,7 @@ public class DatabaseConstant {
     /**
      * INTEGER_KEY
      */
-    public static final String INTEGER_KEY = " INTEGER KEY ";
+    public static final String INTEGER_KEY = " INTEGER ";
 
     /**
      * STRING_KEY
