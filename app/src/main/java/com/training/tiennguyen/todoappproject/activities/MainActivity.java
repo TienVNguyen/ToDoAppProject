@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.training.tiennguyen.todoappproject.R;
 import com.training.tiennguyen.todoappproject.adapters.TaskAdapter;
@@ -74,10 +75,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.main_action_filter) {
+        if (id == R.id.main_action_setting) {
+            openSettingOption();
+            return true;
+        } else if (id == R.id.main_action_filter) {
             openFilterOption();
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -131,9 +136,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Setting Option
+     */
+    private void openSettingOption() {
+        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+    }
+
+    /**
      * Filter Option
      */
     private void openFilterOption() {
-
+        Toast.makeText(this, "Not Supported At Moment!", Toast.LENGTH_SHORT).show();
     }
 }

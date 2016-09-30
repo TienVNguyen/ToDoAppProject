@@ -10,6 +10,7 @@
     <string name="title_activity_main">Trang danh sách</string>
     <string name="title_activity_add">Trang thêm</string>
     <string name="title_activity_edit_or_remove">Trang cập nhật hay hiển thị</string>
+    <string name="menu_setting_option">Cấu hình</string>
     <string name="menu_filter_option">Lọc</string>
     <string name="text_empty_list">Không Dữ Liệu</string>
     <string name="text_name">tên</string>
@@ -23,10 +24,11 @@
     <string name="text_due_date">Ngày hết hạn</string>
     <string name="text_separate"> - </string>
     <string name="text_percent_char">%</string>
+    <string name="text_date_picker">Chọn ngày</string>
     <string name="edt_name_error_empty">Name is required</string>
     <string name="error_add">Lỗi thêm</string>
     <string name="error_add_duplicated">Lỗi thêm trùng tên</string>
-    <string name="error_date">Ngày không phù hợp</string>
+    <string name="error_date">Ngày bắt đầu không được lớn hơn ngày kết thúc</string>
     <string name="error_edit">Lỗi cập nhật</string>
     <string name="error_remove">Lỗi xoá</string>
     <string name="error_load_details">Lỗi đổ dữ liệu</string>

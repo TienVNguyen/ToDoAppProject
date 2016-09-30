@@ -105,10 +105,11 @@
             android:layout_height="wrap_content"
             android:text="@string/text_started_date" />
 
-        <DatePicker
-            android:id="@+id/editTaskDatePickerStartedDate"
+        <EditText
+            android:id="@+id/editTaskStartedSelect"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/text_date_picker" />
 
         <TextView
             style="@style/TextViewTitle"
@@ -116,10 +117,11 @@
             android:layout_height="wrap_content"
             android:text="@string/text_due_date" />
 
-        <DatePicker
-            android:id="@+id/editTaskDatePickerDueDate"
+        <EditText
+            android:id="@+id/editTaskDueSelect"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/text_date_picker" />
 
         <Button
             android:id="@+id/btnEdit"

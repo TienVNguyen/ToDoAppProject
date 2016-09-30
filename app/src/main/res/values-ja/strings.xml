@@ -10,6 +10,7 @@
     <string name="title_activity_main">主な活動</string>
     <string name="title_activity_add">アクティビティの追加</string>
     <string name="title_activity_edit_or_remove">編集またはアクティビティを削除します</string>
+    <string name="menu_setting_option">設定</string>
     <string name="menu_filter_option">フィルタ</string>
     <string name="text_empty_list">データなし</string>
     <string name="text_name">名</string>
@@ -23,10 +24,11 @@
     <string name="text_due_date">期日</string>
     <string name="text_separate"> - </string>
     <string name="text_percent_char">%</string>
+    <string name="text_date_picker">日付ピッカーダイアログ</string>
     <string name="edt_name_error_empty">名前が必要です</string>
     <string name="error_add">エラーを追加します</string>
     <string name="error_add_duplicated">오류 중복 된 이름 추가</string>
-    <string name="error_date">날짜는 적합하지 않습니다</string>
+    <string name="error_date">시작의 날 때문에 날보다 오래되지 수</string>
     <string name="error_edit">編集エラー</string>
     <string name="error_remove">エラーを削除します</string>
     <string name="error_load_details">負荷の詳細エラー</string>

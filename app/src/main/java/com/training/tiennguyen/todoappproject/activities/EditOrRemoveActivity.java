@@ -7,6 +7,7 @@
 
 package com.training.tiennguyen.todoappproject.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,11 +34,12 @@ import com.training.tiennguyen.todoappproject.R;
 import com.training.tiennguyen.todoappproject.constants.VariableConstant;
 import com.training.tiennguyen.todoappproject.databases.TaskDBHelper;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
-import com.training.tiennguyen.todoappproject.utils.DateUtils;
 import com.training.tiennguyen.todoappproject.utils.StringUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,14 +64,20 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     protected SeekBar seekBarPercent;
     @BindView(R.id.editTaskCheckBoxCompleted)
     protected CheckBox checkBoxCompleted;
-    @BindView(R.id.editTaskDatePickerStartedDate)
-    protected DatePicker datePickerStartedDate;
-    @BindView(R.id.editTaskDatePickerDueDate)
-    protected DatePicker datePickerDueDate;
+    @BindView(R.id.editTaskStartedSelect)
+    protected EditText datePickerStartedDate;
+    @BindView(R.id.editTaskDueSelect)
+    protected EditText datePickerDueDate;
     @BindView(R.id.btnEdit)
     protected Button btnEdit;
     @BindView(R.id.btnRemove)
     protected Button btnRemove;
+
+    private DatePickerDialog datePickerDialogForStartedDate;
+    private DatePickerDialog datePickerDialogForDueDate;
+    private Date startedDate;
+    private Date dueDate;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -219,13 +228,51 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         });
 
         final Date currentDate = new Date();
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(taskModel.getmStartedDate());
-        datePickerStartedDate.setMinDate(currentDate.getTime());
-        datePickerStartedDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        calendar.setTime(taskModel.getmDueDate());
-        datePickerDueDate.setMinDate(currentDate.getTime());
-        datePickerDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        startedDate = taskModel.getmStartedDate();
+        dueDate = taskModel.getmDueDate();
+
+        datePickerStartedDate.setText(dateFormatter.format(startedDate));
+        datePickerStartedDate.setInputType(InputType.TYPE_NULL);
+        datePickerStartedDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    datePickerDialogForStartedDate.show();
+                v.clearFocus();
+            }
+        });
+        datePickerDueDate.setText(dateFormatter.format(dueDate));
+        datePickerDueDate.setInputType(InputType.TYPE_NULL);
+        datePickerDueDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    datePickerDialogForDueDate.show();
+                v.clearFocus();
+            }
+        });
+
+        final Calendar newCalendar = Calendar.getInstance();
+        datePickerDialogForStartedDate = new DatePickerDialog(EditOrRemoveActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+                startedDate = newDate.getTime();
+                datePickerStartedDate.setText(dateFormatter.format(startedDate));
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialogForStartedDate.getDatePicker().setMinDate(currentDate.getTime());
+        datePickerDialogForDueDate = new DatePickerDialog(EditOrRemoveActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+                dueDate = newDate.getTime();
+                datePickerDueDate.setText(dateFormatter.format(dueDate));
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialogForDueDate.getDatePicker().setMinDate(currentDate.getTime());
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,8 +346,6 @@ public class EditOrRemoveActivity extends AppCompatActivity {
             return false;
         }
 
-        final Date startedDate = DateUtils.getDateFromDatePicker(datePickerStartedDate);
-        final Date dueDate = DateUtils.getDateFromDatePicker(datePickerDueDate);
         if (startedDate.compareTo(dueDate) > 0) {
             datePickerStartedDate.requestFocus();
             Snackbar.make(view, getString(R.string.error_date), Snackbar.LENGTH_LONG).setAction(VariableConstant.ACTION, null).show();
@@ -326,8 +371,8 @@ public class EditOrRemoveActivity extends AppCompatActivity {
         model.setmPercent(seekBarPercent.getProgress());
         model.setmRemoved(isRemoved);
         model.setmUpdatedDate(date);
-        model.setmStartedDate(DateUtils.getDateFromDatePicker(datePickerStartedDate));
-        model.setmDueDate(DateUtils.getDateFromDatePicker(datePickerDueDate));
+        model.setmStartedDate(startedDate);
+        model.setmDueDate(dueDate);
         return model;
     }
 }
