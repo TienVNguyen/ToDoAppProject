@@ -10,6 +10,7 @@
     <string name="title_activity_main">주요 활동</string>
     <string name="title_activity_add">활동 추가</string>
     <string name="title_activity_edit_or_remove">편집 또는 활동을 제거</string>
+    <string name="title_dialog_filter">필터 오름차순 옵션</string>
     <string name="menu_setting_option">환경</string>
     <string name="menu_filter_option">필터</string>
     <string name="text_empty_list">데이터 없음</string>

@@ -34,14 +34,39 @@ public class DatabaseConstant {
     public static final String NOT_NULL = " NOT NULL ";
 
     /**
+     * DESC
+     */
+    public static final String DESC = " DESC ";
+
+    /**
      * CREATE_TABLE
      */
     public static final String CREATE_TABLE = " CREATE TABLE ";
 
     /**
-     * DROP_TABLE_EXISTED
+     * DROP_TABLE
      */
-    public static final String DROP_TABLE_EXISTED = " DROP TABLE IF EXISTS ";
+    public static final String DROP_TABLE = " DROP TABLE ";
+
+    /**
+     * DROP_INDEX
+     */
+    public static final String DROP_INDEX = " DROP INDEX ";
+
+    /**
+     * CREATE_INDEX
+     */
+    public static final String CREATE_INDEX = " CREATE INDEX ";
+
+    /**
+     * ON
+     */
+    public static final String ON = " ON ";
+
+    /**
+     * IF_EXIST
+     */
+    public static final String IF_EXIST = " IF EXIST ";
 
     /**
      * SELECTION_IS

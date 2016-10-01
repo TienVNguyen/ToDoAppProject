@@ -10,6 +10,7 @@
     <string name="title_activity_main">Trang danh sách</string>
     <string name="title_activity_add">Trang thêm</string>
     <string name="title_activity_edit_or_remove">Trang cập nhật hay hiển thị</string>
+    <string name="title_dialog_filter">Chọn lọc tăng dần</string>
     <string name="menu_setting_option">Cấu hình</string>
     <string name="menu_filter_option">Lọc</string>
     <string name="text_empty_list">Không Dữ Liệu</string>

@@ -12,8 +12,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 
 import com.training.tiennguyen.todoappproject.constants.DatabaseConstant;
+import com.training.tiennguyen.todoappproject.models.FilterModel;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
 
 import java.util.ArrayList;
@@ -58,10 +60,37 @@ public class TaskDBHelper extends SQLiteOpenHelper {
             + DatabaseConstant.CLOSE_BRACKETS + DatabaseConstant.SEMICOLON;
 
     /**
-     * DROP TABLE TASK IF EXISTS TASKS;
+     * CREATE INDEX TASKS_INDEX
+     * ON TASKS
+     * (
+     * NAME,
+     * PRIORITY,
+     * STATUS,
+     * PERCENT,
+     * DUE_DATE
+     * ) ;
+     */
+    private static final String SQL_CREATE_INDEX = DatabaseConstant.CREATE_INDEX + TaskDBContract.TaskContain.TABLE_NAME + "_INDEX"
+            + DatabaseConstant.ON + TaskDBContract.TaskContain.TABLE_NAME
+            + DatabaseConstant.OPEN_BRACKETS
+            + TaskDBContract.TaskContain.COLUMN_NAME + DatabaseConstant.COMMA_SEP
+            + TaskDBContract.TaskContain.COLUMN_PRIORITY + DatabaseConstant.COMMA_SEP
+            + TaskDBContract.TaskContain.COLUMN_STATUS + DatabaseConstant.COMMA_SEP
+            + TaskDBContract.TaskContain.COLUMN_PERCENT + DatabaseConstant.COMMA_SEP
+            + TaskDBContract.TaskContain.COLUMN_DUE_DATE
+            + DatabaseConstant.CLOSE_BRACKETS + DatabaseConstant.SEMICOLON;
+
+    /**
+     * DROP TABLE TASK IF EXISTS;
      */
     private static final String SQL_DELETE_ENTRIES =
-            DatabaseConstant.DROP_TABLE_EXISTED + TaskDBContract.TaskContain.TABLE_NAME + DatabaseConstant.SEMICOLON;
+            DatabaseConstant.DROP_TABLE + TaskDBContract.TaskContain.TABLE_NAME + DatabaseConstant.IF_EXIST + DatabaseConstant.SEMICOLON;
+
+    /**
+     * DROP INDEX TASKS_INDEX IF EXIST ;
+     */
+    private static final String SQL_DELETE_INDEX =
+            DatabaseConstant.DROP_INDEX + TaskDBContract.TaskContain.TABLE_NAME + "_INDEX" + DatabaseConstant.IF_EXIST + DatabaseConstant.SEMICOLON;
 
     /**
      * Create a helper object to create, open, and/or manage a database.
@@ -78,8 +107,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_INDEX);
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -90,12 +119,13 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Delete Database
+     * Delete Database & Index
      *
      * @param db SQLiteDatabase
      */
     private void deleteDatabase(SQLiteDatabase db) {
         db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_INDEX);
     }
 
     /**
@@ -103,7 +133,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
      *
      * @return List<TaskModel>
      */
-    public List<TaskModel> selectAllTasks() {
+    public List<TaskModel> selectAllTasks(FilterModel filterModel) {
         // Get the lock
         final SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
@@ -117,8 +147,11 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 TaskDBContract.TaskContain.COLUMN_DUE_DATE
         };
 
+        // Order By
+        final String orderBy = createOrderBy(filterModel);
+
         // Get the result
-        final Cursor cursor = sqLiteDatabase.query(TaskDBContract.TaskContain.TABLE_NAME, columns, null, null, null, null, null);
+        final Cursor cursor = sqLiteDatabase.query(TaskDBContract.TaskContain.TABLE_NAME, columns, null, null, null, null, orderBy);
         final List<TaskModel> resultSelect = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -143,6 +176,44 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
 
         return resultSelect;
+    }
+
+    /**
+     * This function will create Order By for select query
+     *
+     * @param filterModel FilterModel
+     * @return String
+     */
+    @Nullable
+    private String createOrderBy(FilterModel filterModel) {
+        final List<String> orderByList = new ArrayList<>();
+        if (!filterModel.ismFilterNameAsc()) {
+            orderByList.add(TaskDBContract.TaskContain.COLUMN_NAME + DatabaseConstant.DESC);
+        }
+        if (!filterModel.ismFilterPriorityAsc()) {
+            orderByList.add(TaskDBContract.TaskContain.COLUMN_PRIORITY + DatabaseConstant.DESC);
+        }
+        if (!filterModel.ismFilterStatusAsc()) {
+            orderByList.add(TaskDBContract.TaskContain.COLUMN_STATUS + DatabaseConstant.DESC);
+        }
+        if (!filterModel.ismFilterPercentAsc()) {
+            orderByList.add(TaskDBContract.TaskContain.COLUMN_PERCENT + DatabaseConstant.DESC);
+        }
+        if (!filterModel.ismFilterDueDateAsc()) {
+            orderByList.add(TaskDBContract.TaskContain.COLUMN_DUE_DATE + DatabaseConstant.DESC);
+        }
+
+        if (orderByList.size() == 0) {
+            return null;
+        } else if (orderByList.size() == 1) {
+            return orderByList.get(0);
+        } else {
+            String builder = "";
+            for (String orderBy : orderByList) {
+                builder = orderBy + DatabaseConstant.COMMA_SEP;
+            }
+            return builder;
+        }
     }
 
     /**

@@ -10,6 +10,7 @@
     <string name="title_activity_main">主な活動</string>
     <string name="title_activity_add">アクティビティの追加</string>
     <string name="title_activity_edit_or_remove">編集またはアクティビティを削除します</string>
+    <string name="title_dialog_filter">フィルタ昇順オプション</string>
     <string name="menu_setting_option">設定</string>
     <string name="menu_filter_option">フィルタ</string>
     <string name="text_empty_list">データなし</string>

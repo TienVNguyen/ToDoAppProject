@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,11 +22,12 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.training.tiennguyen.todoappproject.R;
 import com.training.tiennguyen.todoappproject.adapters.TaskAdapter;
 import com.training.tiennguyen.todoappproject.databases.TaskDBHelper;
+import com.training.tiennguyen.todoappproject.dialogs.FilterDialogFragment;
+import com.training.tiennguyen.todoappproject.models.FilterModel;
 import com.training.tiennguyen.todoappproject.models.TaskModel;
 
 import java.util.ArrayList;
@@ -37,7 +41,7 @@ import butterknife.ButterKnife;
  *
  * @author TienVNguyen
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FilterDialogFragment.FilterDialogListener{
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.fab)
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected ListView lvTasks;
 
     private TaskAdapter adapter;
+    private FilterModel filterModel = new FilterModel();
     private List<TaskModel> list = new ArrayList<>();
 
     @Override
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.clear();
 
         final TaskDBHelper dbHelper = new TaskDBHelper(MainActivity.this);
-        list = dbHelper.selectAllTasks();
+        list = dbHelper.selectAllTasks(filterModel);
         if (list.size() > 0)
             adapter.addAll(list);
         adapter.notifyDataSetChanged();
@@ -146,6 +151,25 @@ public class MainActivity extends AppCompatActivity {
      * Filter Option
      */
     private void openFilterOption() {
-        Toast.makeText(this, "Not Supported At Moment!", Toast.LENGTH_SHORT).show();
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = fragmentManager.findFragmentByTag("dialog_fragment_filter");
+        if(fragment != null)
+            fragmentTransaction.remove(fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        // Create and show dialog.
+        FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance(filterModel);
+        filterDialogFragment.show(fragmentTransaction, "dialog_fragment_filter");
+    }
+
+
+    @Override
+    public void onFinishFilterDialog(FilterModel filterModel) {
+        this.filterModel = filterModel;
+        populateDataForList();
     }
 }

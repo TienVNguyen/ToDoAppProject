@@ -10,6 +10,7 @@
     <string name="title_activity_main">Main Activity</string>
     <string name="title_activity_add">Add Activity</string>
     <string name="title_activity_edit_or_remove">Edit or Remove Activity</string>
+    <string name="title_dialog_filter">Filter Ascending Option</string>
     <string name="menu_setting_option">Setting</string>
     <string name="menu_filter_option">Filter</string>
     <string name="text_empty_list">No Data</string>
