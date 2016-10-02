@@ -22,4 +22,9 @@ public final class VariableConstant {
      * ACTION
      */
     public static final String ACTION = "Action";
+
+    /**
+     * FILTER_MODEL
+     */
+    public static final String FILTER_MODEL = "FILTER_MODEL";
 }

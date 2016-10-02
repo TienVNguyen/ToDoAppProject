@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2016. Self Training Systems, Inc - All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential
+  ~ Written by TienVNguyen <tien.workinfo@gmail.com - tien.workinfo@icloud.com>, October 2015
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        style="@style/TextViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_dialog_filter" />
+
+    <CheckBox
+        android:id="@+id/ckbNameAsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTitle"
+        android:checked="true"
+        android:text="@string/text_name" />
+
+    <CheckBox
+        android:id="@+id/ckbPriorityAsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ckbNameAsc"
+        android:checked="true"
+        android:text="@string/text_priority" />
+
+    <CheckBox
+        android:id="@+id/ckbStatusAsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ckbPriorityAsc"
+        android:checked="true"
+        android:text="@string/text_status" />
+
+    <CheckBox
+        android:id="@+id/ckbPercentAsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ckbStatusAsc"
+        android:checked="true"
+        android:text="@string/text_percent" />
+
+    <CheckBox
+        android:id="@+id/ckbDueDateAsc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ckbPercentAsc"
+        android:checked="true"
+        android:text="@string/text_due_date" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ckbDueDateAsc"
+        android:text="@string/btn_cancel"
+        android:textAllCaps="true" />
+
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ckbDueDateAsc"
+        android:text="@string/btn_accept"
+        android:textAllCaps="true" />
+</RelativeLayout>

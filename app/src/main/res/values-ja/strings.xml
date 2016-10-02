@@ -10,6 +10,7 @@
     <string name="title_activity_main">主な活動</string>
     <string name="title_activity_add">アクティビティの追加</string>
     <string name="title_activity_edit_or_remove">編集またはアクティビティを削除します</string>
+    <string name="title_dialog_filter">フィルタ昇順オプション</string>
     <string name="menu_setting_option">設定</string>
     <string name="menu_filter_option">フィルタ</string>
     <string name="text_empty_list">データなし</string>
@@ -40,6 +41,8 @@
     <string name="btn_add">加えます</string>
     <string name="btn_edit">編集</string>
     <string name="btn_remove">削除します</string>
+    <string name="btn_cancel">キャンセル</string>
+    <string name="btn_accept">同意する</string>
     <string-array name="spinner_priority">
         <item>ロー</item>
         <item>ノーマル</item>
