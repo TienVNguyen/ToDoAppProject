@@ -41,7 +41,7 @@ import butterknife.ButterKnife;
  *
  * @author TienVNguyen
  */
-public class MainActivity extends AppCompatActivity implements FilterDialogFragment.FilterDialogListener{
+public class MainActivity extends AppCompatActivity implements FilterDialogFragment.FilterDialogListener {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.fab)
@@ -157,15 +157,15 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment = fragmentManager.findFragmentByTag("dialog_fragment_filter");
-        if(fragment != null)
+        if (fragment != null)
             fragmentTransaction.remove(fragment);
         fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
         // Create and show dialog.
         FilterDialogFragment filterDialogFragment = FilterDialogFragment.newInstance(filterModel);
-        filterDialogFragment.show(fragmentTransaction, "dialog_fragment_filter");
+        filterDialogFragment.show(fragmentManager, "dialog_fragment_filter");
     }
-
 
     @Override
     public void onFinishFilterDialog(FilterModel filterModel) {

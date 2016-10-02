@@ -8,18 +8,16 @@
 package com.training.tiennguyen.todoappproject.dialogs;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.training.tiennguyen.todoappproject.R;
 import com.training.tiennguyen.todoappproject.constants.VariableConstant;
@@ -34,16 +32,20 @@ import butterknife.ButterKnife;
  * @author TienVNguyen
  */
 public class FilterDialogFragment extends DialogFragment {
-    @BindView(R.id.checkbox_name_asc)
+    @BindView(R.id.ckbNameAsc)
     protected CheckBox checkBoxNameAsc;
-    @BindView(R.id.checkbox_priority_asc)
+    @BindView(R.id.ckbPriorityAsc)
     protected CheckBox checkBoxPriorityAsc;
-    @BindView(R.id.checkbox_status_asc)
+    @BindView(R.id.ckbStatusAsc)
     protected CheckBox checkBoxStatusAsc;
-    @BindView(R.id.checkbox_percent_asc)
+    @BindView(R.id.ckbPercentAsc)
     protected CheckBox checkBoxPercentAsc;
-    @BindView(R.id.checkbox_due_date_asc)
+    @BindView(R.id.ckbDueDateAsc)
     protected CheckBox checkBoxDueDateAsc;
+    @BindView(R.id.btnCancel)
+    protected Button btnCancel;
+    @BindView(R.id.btnAccept)
+    protected Button btnAccept;
 
     /**
      * Defines the listener interface with a method passing back data result.
@@ -74,29 +76,27 @@ public class FilterDialogFragment extends DialogFragment {
         return fragment;
     }
 
-    /**
-     * Send Back result
-     */
-    public void sendBackResult (){
-        FilterModel filterModel = new FilterModel();
-        filterModel.setmFilterNameAsc(checkBoxNameAsc.isChecked());
-        filterModel.setmFilterPriorityAsc(checkBoxPriorityAsc.isChecked());
-        filterModel.setmFilterStatusAsc(checkBoxStatusAsc.isChecked());
-        filterModel.setmFilterPercentAsc(checkBoxPercentAsc.isChecked());
-        filterModel.setmFilterDueDateAsc(checkBoxDueDateAsc.isChecked());
-
-        // Notice the use of `getTargetFragment` which will be set when the dialog is displayed
-        FilterDialogListener listener = (FilterDialogListener) getTargetFragment();
-        listener.onFinishFilterDialog(filterModel);
-        dismiss();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_fragment_filter, container);
+        View view = inflater.inflate(R.layout.dialog_fragment_filter, container);
+        ButterKnife.bind(this, view);
 
-        //checkBoxNameAsc.setOnEditorActionListener(this);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -121,5 +121,18 @@ public class FilterDialogFragment extends DialogFragment {
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        final FilterModel filterModel = new FilterModel();
+        filterModel.setmFilterNameAsc(checkBoxNameAsc.isChecked());
+        filterModel.setmFilterPriorityAsc(checkBoxPriorityAsc.isChecked());
+        filterModel.setmFilterStatusAsc(checkBoxStatusAsc.isChecked());
+        filterModel.setmFilterPercentAsc(checkBoxPercentAsc.isChecked());
+        filterModel.setmFilterDueDateAsc(checkBoxDueDateAsc.isChecked());
 
+        final FilterDialogListener listener = (FilterDialogListener) getActivity();
+        listener.onFinishFilterDialog(filterModel);
+
+        super.onDismiss(dialog);
+    }
 }

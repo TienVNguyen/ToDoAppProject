@@ -3,7 +3,7 @@ ToDoAppProject
 
 An small entry demo app to join the http://www.CoderSchool.Vn learning activity. See the Tutorial on our cliffnotes for a step-by-step tutorial.
 
-Time spent: [28] hours implementation in total:
+Time spent: [30] hours implementation in total:
 - 09/23: 3 hours
 - 09/24: 3 hours
 - 09/25: 6 hours
@@ -13,6 +13,7 @@ Time spent: [28] hours implementation in total:
 - 09/29: 4 hours
 - 09/30: 3 hours
 - 10/01: 3 hours
+- 10/01: 2 hours
 
 Implement/App link: https://github.com/TienVNguyen/ToDoAppProject
 
@@ -33,6 +34,7 @@ Implement/App link: https://github.com/TienVNguyen/ToDoAppProject
 * [x] Improve style of the todo items in the list using a custom adapter (http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
 * [x] Add support for completion due dates for todo items (and display within listview item)
 * [] Use a DialogFragment (http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
+* [x] Use a DialogFragment (http://guides.codepath.com/android/Using-DialogFragment) for filter option
 * [x] Add support for selecting the priority of each todo item (and display in listview item)
 * [x] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 * [x] Anything else that you can get done to improve the app functionality or user experience!

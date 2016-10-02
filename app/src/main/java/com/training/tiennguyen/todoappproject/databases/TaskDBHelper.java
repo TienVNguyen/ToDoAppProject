@@ -147,11 +147,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 TaskDBContract.TaskContain.COLUMN_DUE_DATE
         };
 
-        // Order By
-        final String orderBy = createOrderBy(filterModel);
-
         // Get the result
-        final Cursor cursor = sqLiteDatabase.query(TaskDBContract.TaskContain.TABLE_NAME, columns, null, null, null, null, orderBy);
+        final Cursor cursor = sqLiteDatabase.query(TaskDBContract.TaskContain.TABLE_NAME, columns, null, null, null, null, createOrderBy(filterModel));
         final List<TaskModel> resultSelect = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -210,9 +207,9 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         } else {
             String builder = "";
             for (String orderBy : orderByList) {
-                builder = orderBy + DatabaseConstant.COMMA_SEP;
+                builder += orderBy + DatabaseConstant.COMMA_SEP;
             }
-            return builder;
+            return builder.substring(0, builder.length() - 1);
         }
     }
 

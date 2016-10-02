@@ -41,6 +41,8 @@
     <string name="btn_add">加えます</string>
     <string name="btn_edit">編集</string>
     <string name="btn_remove">削除します</string>
+    <string name="btn_cancel">キャンセル</string>
+    <string name="btn_accept">同意する</string>
     <string-array name="spinner_priority">
         <item>ロー</item>
         <item>ノーマル</item>

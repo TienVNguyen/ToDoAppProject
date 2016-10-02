@@ -41,6 +41,8 @@
     <string name="btn_add">Add</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_remove">Remove</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_accept">Accept</string>
     <string-array name="spinner_priority">
         <item>Low</item>
         <item>Normal</item>
