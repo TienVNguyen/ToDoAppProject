@@ -98,7 +98,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
      * created or opened until one of {@link #getWritableDatabase} or
      * {@link #getReadableDatabase} is called.
      *
-     * @param context to use to open or create the database
+     * @param context {@link Context} to use to open or create the database
      */
     public TaskDBHelper(Context context) {
         super(context, TaskDBContract.TaskContain.DATABASE_NAME_VALUE, null, TaskDBContract.TaskContain.DATABASE_VERSION_VALUE);
@@ -121,7 +121,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * Delete Database & Index
      *
-     * @param db SQLiteDatabase
+     * @param db {@link SQLiteDatabase}
      */
     private void deleteDatabase(SQLiteDatabase db) {
         db.execSQL(SQL_DELETE_ENTRIES);
@@ -131,7 +131,7 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * This function will select all record(s) of table inside of database
      *
-     * @return List<TaskModel>
+     * @return @{link List<TaskModel>}
      */
     public List<TaskModel> selectAllTasks(FilterModel filterModel) {
         // Get the lock
@@ -178,8 +178,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * This function will create Order By for select query
      *
-     * @param filterModel FilterModel
-     * @return String
+     * @param filterModel {@link FilterModel}
+     * @return {@link String}
      */
     @Nullable
     private String createOrderBy(FilterModel filterModel) {
@@ -216,8 +216,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * This function will insert a record of table inside of database
      *
-     * @param taskModel TaskModel
-     * @return long
+     * @param taskModel {@link TaskModel}
+     * @return {@link Long}
      */
     public long insertTask(final TaskModel taskModel) {
         // Get the lock
@@ -241,8 +241,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * This function will update a record of table inside of database
      *
-     * @param taskModel TaskModel
-     * @return int
+     * @param taskModel {@link TaskModel}
+     * @return {@link Integer}
      */
     public int updateTask(final TaskModel taskModel) {
         // Get the lock
@@ -273,8 +273,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * This function will delete a record of table inside of database
      *
-     * @param taskModel TaskModel
-     * @return int
+     * @param taskModel {@link TaskModel}
+     * @return {@link Integer}
      */
     public int deleteTask(final TaskModel taskModel) {
         // Get the lock
@@ -314,8 +314,8 @@ public class TaskDBHelper extends SQLiteOpenHelper {
     /**
      * createContentValues
      *
-     * @param taskModel TaskModel
-     * @return ContentValues
+     * @param taskModel {@link TaskModel}
+     * @return {@link ContentValues}
      */
     private ContentValues createContentValues(TaskModel taskModel) {
         ContentValues contentValues = new ContentValues();

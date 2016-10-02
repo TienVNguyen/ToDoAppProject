@@ -21,8 +21,8 @@ public class DateUtils {
     /**
      * getDateFromDatePicker
      *
-     * @param datePicker DatePicker
-     * @return Date
+     * @param datePicker {@link DatePicker}
+     * @return {@link Date}
      */
     public static Date getDateFromDatePicker(DatePicker datePicker) {
         int day = datePicker.getDayOfMonth();

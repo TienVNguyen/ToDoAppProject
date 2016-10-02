@@ -22,8 +22,8 @@ public final class StringUtil {
      * <li>contains the String "null" (not case sensitive)
      * </ul>
      *
-     * @param inputStr to be examined.
-     * @return true/false.
+     * @param inputStr {@link String} to be examined.
+     * @return {@link Boolean} true/false.
      */
     public static boolean isEmpty(final String inputStr) {
         return (inputStr == null || inputStr.trim().length() == 0 || ("null").equalsIgnoreCase(inputStr));
@@ -35,8 +35,8 @@ public final class StringUtil {
      * <li>is null
      * </ul>
      *
-     * @param inputObj to be examined.
-     * @return true/false.
+     * @param inputObj {@link Object} to be examined.
+     * @return {@link Boolean} true/false.
      */
     public static boolean isNotNull(final Object inputObj) {
         return inputObj != null;

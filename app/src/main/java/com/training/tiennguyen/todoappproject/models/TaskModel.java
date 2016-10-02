@@ -19,6 +19,22 @@ import java.util.Date;
  */
 public class TaskModel implements Parcelable {
     /**
+     * After implementing the `Parcelable` interface, we need to create the
+     * `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
+     */
+    public static final Creator<TaskModel> CREATOR = new Creator<TaskModel>() {
+
+        @Override
+        public TaskModel createFromParcel(Parcel in) {
+            return new TaskModel(in);
+        }
+
+        @Override
+        public TaskModel[] newArray(int size) {
+            return new TaskModel[size];
+        }
+    };
+    /**
      * Name
      */
     private String mName = "";
@@ -72,7 +88,7 @@ public class TaskModel implements Parcelable {
     /**
      * Constructor
      *
-     * @param in Parcel
+     * @param in {@link Parcel}
      */
     private TaskModel(Parcel in) {
         mName = in.readString();
@@ -87,23 +103,6 @@ public class TaskModel implements Parcelable {
         mStartedDate = new Date(in.readLong());
         mDueDate = new Date(in.readLong());
     }
-
-    /**
-     * After implementing the `Parcelable` interface, we need to create the
-     * `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
-     */
-    public static final Creator<TaskModel> CREATOR = new Creator<TaskModel>() {
-
-        @Override
-        public TaskModel createFromParcel(Parcel in) {
-            return new TaskModel(in);
-        }
-
-        @Override
-        public TaskModel[] newArray(int size) {
-            return new TaskModel[size];
-        }
-    };
 
     @Override
     public int describeContents() {

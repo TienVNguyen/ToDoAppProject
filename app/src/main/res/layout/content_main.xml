@@ -37,8 +37,8 @@
         android:textStyle="bold|italic"
         android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/lvTasks"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvTasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/holo_orange_light"

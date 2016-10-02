@@ -17,6 +17,21 @@ import android.os.Parcelable;
  */
 public class FilterModel implements Parcelable {
     /**
+     * After implementing the `Parcelable` interface, we need to create the
+     * `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
+     */
+    public static final Creator<FilterModel> CREATOR = new Creator<FilterModel>() {
+        @Override
+        public FilterModel createFromParcel(Parcel in) {
+            return new FilterModel(in);
+        }
+
+        @Override
+        public FilterModel[] newArray(int size) {
+            return new FilterModel[size];
+        }
+    };
+    /**
      * Filter Name ASC
      */
     private boolean mFilterNameAsc = true;
@@ -74,22 +89,6 @@ public class FilterModel implements Parcelable {
         mFilterPercentAsc = in.readByte() != 0;
         mFilterDueDateAsc = in.readByte() != 0;
     }
-
-    /**
-     * After implementing the `Parcelable` interface, we need to create the
-     * `Parcelable.Creator<MyParcelable> CREATOR` constant for our class;
-     */
-    public static final Creator<FilterModel> CREATOR = new Creator<FilterModel>() {
-        @Override
-        public FilterModel createFromParcel(Parcel in) {
-            return new FilterModel(in);
-        }
-
-        @Override
-        public FilterModel[] newArray(int size) {
-            return new FilterModel[size];
-        }
-    };
 
     @Override
     public int describeContents() {

@@ -259,7 +259,7 @@ public class AddActivity extends AppCompatActivity {
     /**
      * Add Function
      *
-     * @param view View
+     * @param view {@link View}
      */
     private void addFunction(final View view) {
         if (validateFields(view)) {
@@ -296,8 +296,8 @@ public class AddActivity extends AppCompatActivity {
     /**
      * Validate Fields
      *
-     * @param view View
-     * @return boolean
+     * @param view {@link View}
+     * @return {@link boolean}
      */
     private boolean validateFields(final View view) {
         if (StringUtil.isEmpty(txtName.getText().toString())) {
