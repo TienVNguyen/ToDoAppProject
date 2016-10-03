@@ -288,7 +288,7 @@ public class AddActivity extends AppCompatActivity {
                 Toast.makeText(context, getString(R.string.error_add_duplicated), Toast.LENGTH_SHORT).show();
             } else {
                 txtName.requestFocus();
-                Toast.makeText(context, getString(R.string.error_add), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.error_add_duplicated), Toast.LENGTH_SHORT).show();
             }
         }
     }

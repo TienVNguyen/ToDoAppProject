@@ -34,6 +34,7 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+    compile "jp.wasabeef:recyclerview-animators:$rootProject.recyclerviewAnimatorsVersion"
 
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
 

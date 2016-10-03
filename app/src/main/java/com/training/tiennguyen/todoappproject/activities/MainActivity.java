@@ -36,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * {@link MainActivity}
@@ -121,8 +122,9 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
 
         adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
         rvTasks.setAdapter(adapter);
-        rvTasks.setLayoutManager(new LinearLayoutManager(this));
+        rvTasks.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         rvTasks.setHasFixedSize(true);
+        rvTasks.setItemAnimator(new SlideInUpAnimator());
     }
 
     /**
@@ -131,10 +133,15 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
     private void populateDataForList() {
         pbList.setVisibility(View.VISIBLE);
 
-        final int curSize = adapter.getItemCount();
         final TaskDBHelper dbHelper = new TaskDBHelper(MainActivity.this);
-        list = dbHelper.selectAllTasks(filterModel);
-        adapter.notifyItemRangeChanged(curSize, list.size());
+        list.clear();
+        list.addAll(dbHelper.selectAllTasks(filterModel));
+        if (list.size() > 0) {
+            txtEmptyList.setVisibility(View.GONE);
+        } else {
+            txtEmptyList.setVisibility(View.VISIBLE);
+        }
+        adapter.notifyDataSetChanged();
 
         pbList.setVisibility(View.GONE);
     }

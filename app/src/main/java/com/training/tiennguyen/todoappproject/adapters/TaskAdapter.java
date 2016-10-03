@@ -82,8 +82,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             holder.txtStatus.setText(model.getmStatus());
             holder.txtPercent.setText(String.valueOf(model.getmPercent()));
 
-            String priority = model.getmPriority();
-            String[] priorities = mContext.getResources().getStringArray(R.array.spinner_priority);
+            final String priority = model.getmPriority();
+            final String[] priorities = mContext.getResources().getStringArray(R.array.spinner_priority);
             if (priority.equalsIgnoreCase(priorities[0])) {
                 holder.txtPriority.setTextColor(ContextCompat.getColor(mContext, R.color.colorCyan));
             } else if (priority.equalsIgnoreCase(priorities[1])) {
@@ -93,7 +93,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             }
             holder.txtPriority.setText(priority);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             holder.txtDueDate.setText(sdf.format(model.getmDueDate()));
         }
     }
@@ -106,17 +106,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     /**
      * Task View Holder
      */
-    protected static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.listItemTxtName)
-        protected TextView txtName;
+        TextView txtName;
         @BindView(R.id.listItemTxtStatus)
-        protected TextView txtStatus;
+        TextView txtStatus;
         @BindView(R.id.listItemTxtPercent)
-        protected TextView txtPercent;
+        TextView txtPercent;
         @BindView(R.id.listItemTxtPriority)
-        protected TextView txtPriority;
+        TextView txtPriority;
         @BindView(R.id.listItemTxtDueDate)
-        protected TextView txtDueDate;
+        TextView txtDueDate;
 
         private Context mContext;
         private List<TaskModel> mList;
@@ -128,7 +128,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
          * @param list    {@link List<TaskModel>}
          * @param view    {@link View}
          */
-        protected TaskViewHolder(Context context, List<TaskModel> list, View view) {
+        TaskViewHolder(Context context, List<TaskModel> list, View view) {
             super(view);
             this.mContext = context;
             this.mList = list;

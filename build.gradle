@@ -41,6 +41,7 @@ ext {
     /* dependencies versions */
     supportLibraryVersion = '24.2.1'
     butterknifeVersion = '8.4.0'
+    recyclerviewAnimatorsVersion = '2.2.3'
 
     /* test*/
     espressoCoreVersion = '2.2.2'
