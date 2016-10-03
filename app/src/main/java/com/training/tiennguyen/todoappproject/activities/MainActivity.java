@@ -15,11 +15,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * {@link MainActivity}
@@ -50,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
     protected ProgressBar pbList;
     @BindView(R.id.txtEmptyList)
     protected TextView txtEmptyList;
-    @BindView(R.id.lvTasks)
-    protected ListView lvTasks;
+    @BindView(R.id.rvTasks)
+    protected RecyclerView rvTasks;
 
     private TaskAdapter adapter;
     private FilterModel filterModel = new FilterModel();
@@ -119,8 +121,10 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
         });
 
         adapter = new TaskAdapter(MainActivity.this, R.layout.list_tasks_item, list);
-        lvTasks.setAdapter(adapter);
-        lvTasks.setEmptyView(txtEmptyList);
+        rvTasks.setAdapter(adapter);
+        rvTasks.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        rvTasks.setHasFixedSize(true);
+        rvTasks.setItemAnimator(new SlideInUpAnimator());
     }
 
     /**
@@ -129,12 +133,14 @@ public class MainActivity extends AppCompatActivity implements FilterDialogFragm
     private void populateDataForList() {
         pbList.setVisibility(View.VISIBLE);
 
-        adapter.clear();
-
         final TaskDBHelper dbHelper = new TaskDBHelper(MainActivity.this);
-        list = dbHelper.selectAllTasks(filterModel);
-        if (list.size() > 0)
-            adapter.addAll(list);
+        list.clear();
+        list.addAll(dbHelper.selectAllTasks(filterModel));
+        if (list.size() > 0) {
+            txtEmptyList.setVisibility(View.GONE);
+        } else {
+            txtEmptyList.setVisibility(View.VISIBLE);
+        }
         adapter.notifyDataSetChanged();
 
         pbList.setVisibility(View.GONE);

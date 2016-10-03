@@ -48,13 +48,6 @@ public class FilterDialogFragment extends DialogFragment {
     protected Button btnAccept;
 
     /**
-     * Defines the listener interface with a method passing back data result.
-     */
-    public interface FilterDialogListener {
-        void onFinishFilterDialog(FilterModel filterModel);
-    }
-
-    /**
      * Empty constructor is required for DialogFragment
      * Make sure not to add arguments to the constructor
      * Use `newInstance` instead as shown below
@@ -134,5 +127,12 @@ public class FilterDialogFragment extends DialogFragment {
         listener.onFinishFilterDialog(filterModel);
 
         super.onDismiss(dialog);
+    }
+
+    /**
+     * Defines the listener interface with a method passing back data result.
+     */
+    public interface FilterDialogListener {
+        void onFinishFilterDialog(FilterModel filterModel);
     }
 }

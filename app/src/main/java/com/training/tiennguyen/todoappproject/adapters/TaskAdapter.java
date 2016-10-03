@@ -9,12 +9,11 @@ package com.training.tiennguyen.todoappproject.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.training.tiennguyen.todoappproject.R;
@@ -34,41 +33,44 @@ import butterknife.ButterKnife;
  *
  * @author TienVNguyen
  */
-public class TaskAdapter extends ArrayAdapter<TaskModel> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
+    /**
+     * mContext
+     */
+    private Context mContext;
     /**
      * mResource
      */
     private int mResource;
+    /**
+     * mList
+     */
+    private List<TaskModel> mList;
 
     /**
      * Constructor
      *
-     * @param context  The current context.
-     * @param resource The resource ID for a layout file containing a TextView to use when
-     *                 instantiating views.
-     * @param objects  The objects to represent in the ListView.
+     * @param context  {@link Context}
+     * @param resource {@link Integer}
+     * @param objects  {@link List<TaskModel>}
      */
     public TaskAdapter(Context context, int resource, List<TaskModel> objects) {
-        super(context, 0, objects);
+        this.mContext = context;
         this.mResource = resource;
+        this.mList = objects;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Caching
-        final TaskViewHolder holder;
-        final Context context = getContext();
-        if (convertView != null) {
-            holder = (TaskViewHolder) convertView.getTag();
-        } else {
-            convertView = LayoutInflater.from(context).inflate(mResource, parent, false);
-            holder = new TaskViewHolder(convertView);
-            convertView.setTag(holder);
-        }
+    public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final Context context = parent.getContext();
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        final View view = inflater.inflate(mResource, parent, false);
+        return new TaskViewHolder(context, mList, view);
+    }
 
-        // Populating
-        final TaskModel model = getItem(position);
+    @Override
+    public void onBindViewHolder(TaskViewHolder holder, int position) {
+        final TaskModel model = mList.get(position);
         if (model != null) {
             String name = model.getmName();
             if (name.length() > 25) {
@@ -80,57 +82,71 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
             holder.txtStatus.setText(model.getmStatus());
             holder.txtPercent.setText(String.valueOf(model.getmPercent()));
 
-            String priority = model.getmPriority();
-            String[] priorities = context.getResources().getStringArray(R.array.spinner_priority);
+            final String priority = model.getmPriority();
+            final String[] priorities = mContext.getResources().getStringArray(R.array.spinner_priority);
             if (priority.equalsIgnoreCase(priorities[0])) {
-                holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorCyan));
+                holder.txtPriority.setTextColor(ContextCompat.getColor(mContext, R.color.colorCyan));
             } else if (priority.equalsIgnoreCase(priorities[1])) {
-                holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorLime));
+                holder.txtPriority.setTextColor(ContextCompat.getColor(mContext, R.color.colorLime));
             } else {
-                holder.txtPriority.setTextColor(ContextCompat.getColor(context, R.color.colorRed));
+                holder.txtPriority.setTextColor(ContextCompat.getColor(mContext, R.color.colorRed));
             }
             holder.txtPriority.setText(priority);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             holder.txtDueDate.setText(sdf.format(model.getmDueDate()));
         }
+    }
 
-        // Activities Edit/Remove
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Context context = getContext();
-                final Intent intent = new Intent(context, EditOrRemoveActivity.class);
-                intent.putExtra(VariableConstant.TASK_DETAILS_INTENT, model);
-                context.startActivity(intent);
-            }
-        });
-
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return mList.size();
     }
 
     /**
      * Task View Holder
      */
-    protected static class TaskViewHolder {
+    static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.listItemTxtName)
-        protected TextView txtName;
+        TextView txtName;
         @BindView(R.id.listItemTxtStatus)
-        protected TextView txtStatus;
+        TextView txtStatus;
         @BindView(R.id.listItemTxtPercent)
-        protected TextView txtPercent;
+        TextView txtPercent;
         @BindView(R.id.listItemTxtPriority)
-        protected TextView txtPriority;
+        TextView txtPriority;
         @BindView(R.id.listItemTxtDueDate)
-        protected TextView txtDueDate;
+        TextView txtDueDate;
+
+        private Context mContext;
+        private List<TaskModel> mList;
 
         /**
          * Constructor
          *
-         * @param view View
+         * @param context {@link Context}
+         * @param list    {@link List<TaskModel>}
+         * @param view    {@link View}
          */
-        protected TaskViewHolder(View view) {
+        TaskViewHolder(Context context, List<TaskModel> list, View view) {
+            super(view);
+            this.mContext = context;
+            this.mList = list;
             ButterKnife.bind(this, view);
+
+            // Activities Edit/Remove
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            final int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                final Context context = mContext;
+                final Intent intent = new Intent(context, EditOrRemoveActivity.class);
+                intent.putExtra(VariableConstant.TASK_DETAILS_INTENT, mList.get(position));
+                context.startActivity(intent);
+            }
         }
     }
 }

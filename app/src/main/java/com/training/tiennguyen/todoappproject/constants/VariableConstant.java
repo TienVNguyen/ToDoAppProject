@@ -8,7 +8,7 @@
 package com.training.tiennguyen.todoappproject.constants;
 
 /**
- * Variable Constant
+ * {@link VariableConstant}
  *
  * @author TienVNguyen
  */

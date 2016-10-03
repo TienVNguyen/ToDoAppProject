@@ -128,7 +128,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     /**
      * Load views
      *
-     * @param taskModel TaskModel
+     * @param taskModel {@link TaskModel}
      */
     private void loadViews(final TaskModel taskModel) {
         txtName.setText(taskModel.getmName());
@@ -190,7 +190,8 @@ public class EditOrRemoveActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -317,7 +318,7 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     /**
      * Edit Function
      *
-     * @param view View
+     * @param view {@link View}
      */
     private void EditFunction(final View view) {
         if (validateFields(view)) {
@@ -336,8 +337,8 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     /**
      * Validate Fields
      *
-     * @param view View
-     * @return boolean
+     * @param view {@link View}
+     * @return {@link boolean}
      */
     private boolean validateFields(final View view) {
         if (StringUtil.isEmpty(txtName.getText().toString())) {
@@ -358,8 +359,8 @@ public class EditOrRemoveActivity extends AppCompatActivity {
     /**
      * Build Object Task
      *
-     * @param isRemoved boolean
-     * @return TaskModel
+     * @param isRemoved {@link Boolean}
+     * @return {@link TaskModel}
      */
     private TaskModel buildObjectTask(final boolean isRemoved) {
         final Date date = new Date();

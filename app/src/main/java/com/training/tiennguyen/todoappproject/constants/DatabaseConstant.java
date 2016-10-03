@@ -9,7 +9,7 @@ package com.training.tiennguyen.todoappproject.constants;
 
 /**
  * {@link DatabaseConstant}
- *
+ * <p>
  * Created by TienVNguyen
  */
 public class DatabaseConstant {
